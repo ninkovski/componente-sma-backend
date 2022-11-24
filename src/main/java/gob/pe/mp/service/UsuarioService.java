@@ -29,14 +29,14 @@ public class UsuarioService implements LoginApiDelegate {
         loginDataResponse.setEstado(isInicioSesionCorrecta);
 
         Metadata metadata = new Metadata();
-        metadata.setStatus(HttpStatus.OK.value());
-        metadata.setMessage("El proceso fue exitoso.");
+        metadata.setStatus(isInicioSesionCorrecta ? HttpStatus.OK.value() : HttpStatus.UNAUTHORIZED.value());
+        metadata.setMessage(isInicioSesionCorrecta ? "El proceso fue exitoso." : "Acceso no autorizado.");
 
         LoginResponse response = new LoginResponse();
         response.setMetadata(metadata);
         response.setData(loginDataResponse);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(metadata.getStatus()));
     }
 
 }

@@ -37,6 +37,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse400'
+        '401':
+          description: Acceso no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse401'
         '404':
           description: Recurso inválido
           content:
@@ -584,6 +590,16 @@ components:
         message:
           type: string
           example: Los datos ingresados son inválidos.
+    ApiResponse401:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 401
+        message:
+          type: string
+          example: Acceso no autorizado.
     ApiResponse404:
       type: object
       properties:
