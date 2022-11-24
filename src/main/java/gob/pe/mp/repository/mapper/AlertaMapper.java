@@ -29,9 +29,17 @@ public interface AlertaMapper {
     @Options(statementType = StatementType.CALLABLE)
     List<AlertaEntity> listar();
 
+    @Select(value = "SELECT count(\"ID_ALERTA\") FROM \"TB_ALERTA\"")
+    @Options(statementType = StatementType.CALLABLE)
+    Integer contar();
+
     @Select(value = "SELECT * FROM \"TB_ALERTA\" WHERE CAST (\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
     List<AlertaEntity> listarByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
+
+    @Select(value = "SELECT count(\"ID_ALERTA\") from \"TB_ALERTA\" WHERE CAST (\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
+    @Options(statementType = StatementType.CALLABLE)
+    Integer contarByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
     @Insert(value = "INSERT INTO \"TB_ACCION_ALERTA\" (\"DESCRIPCION\") VALUES (#{descripcion})")
     void insertarAccionAlerta(@Param("descripcion") String descripcion);
@@ -52,7 +60,14 @@ public interface AlertaMapper {
             "INNER JOIN \"TB_ALERTA_ACION_PROTECCION\" taap on tbp.\"ID_MED_PROTECCION\"=taap.\"ID_MED_PROTECCION\" " +
             "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=taap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
-    List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin);
+    List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
+
+    @Select(value = "SELECT count(tbp.\"ID_MED_PROTECCION\") " +
+            "FROM \"TB_MEDIDA_PROTECCION\" tbp " +
+            "INNER JOIN \"TB_ALERTA_ACION_PROTECCION\" taap on tbp.\"ID_MED_PROTECCION\"=taap.\"ID_MED_PROTECCION\" " +
+            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=taap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
+    @Options(statementType = StatementType.CALLABLE)
+    Integer contarProteccionAlertaByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
     @Insert(value = "INSERT INTO \"TB_DENUNCIA_ALERTA\"" +
             "(\"ID_DENUNCIA_ALERTA\",\"ID_ALERTA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +

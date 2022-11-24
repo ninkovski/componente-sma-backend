@@ -142,6 +142,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
+  /alertas/cantidad:
+    get:
+      tags:
+      - Alerta
+      summary: Contar alerta.
+      description: |
+        Este método permite contar las alertas.
+      operationId: contarAlerta
+      parameters:
+      - name: fechaInicio
+        in: query
+        description: Fecha de inicio que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '5/07/2022'
+      - name: fechaFin
+        in: query
+        description: Fecha de fin que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '6/07/2022'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContarAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
   /alertas/accion:
     post:
       tags:
@@ -283,6 +331,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListarProteccionAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /alertas/proteccion/cantidad:
+    get:
+      tags:
+      - Alerta
+      summary: Contar medida protección alerta.
+      description: |
+        Este método permite contar la medida protección alerta.
+      operationId: contarProteccionAlerta
+      parameters:
+      - name: fechaInicio
+        in: query
+        description: Fecha de inicio que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '5/07/2022'
+      - name: fechaFin
+        in: query
+        description: Fecha de fin que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '6/07/2022'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContarProteccionAlertaResponse'
         '400':
           description: Datos no válidos
           content:
@@ -478,6 +574,13 @@ components:
             $ref: '#/components/schemas/ListarAlertaDataResponse'
         metadata:
           $ref: '#/components/schemas/Metadata'
+    ContarAlertaResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ContarAlertaDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     ListarAccionAlertaResponse:
       type: object
       properties:
@@ -494,6 +597,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ListarProteccionAlertaDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ContarProteccionAlertaResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/ContarProteccionAlertaDataResponse'
         metadata:
           $ref: '#/components/schemas/Metadata'
     LoginDataResponse:
@@ -552,6 +662,12 @@ components:
       required:
       - idFiscal
       - idDelito
+    ContarAlertaDataResponse:
+      type: object
+      properties:
+        cantidad:
+          type: integer
+          example: 123
     ListarAccionAlertaDataResponse:
       type: object
       properties:
@@ -570,6 +686,12 @@ components:
         descripcion:
           type: string
           example: 'Protección alerta'
+    ContarProteccionAlertaDataResponse:
+      type: object
+      properties:
+        cantidad:
+          type: integer
+          example: 123
     Metadata:
       type: object
       properties:

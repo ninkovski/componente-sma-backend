@@ -73,6 +73,33 @@ public class AlertaService implements AlertasApiDelegate {
     }
 
     @Override
+    public ResponseEntity<ContarAlertaResponse> contarAlerta(String fechaInicio, String fechaFin) {
+        Integer cantidad;
+
+        if (fechaInicio != null && !fechaInicio.isEmpty()
+                && fechaFin != null && !fechaFin.isEmpty()) {
+            Date fechaInicioDate = DateUtil.getDateFromString(fechaInicio, DateUtil.DATE_FORMAT);
+            Date fechaFinDate = DateUtil.getDateFromString(fechaFin, DateUtil.DATE_FORMAT);
+            cantidad = alertaRepository.contarByFechas(fechaInicioDate, fechaFinDate);
+        } else {
+            cantidad = alertaRepository.contar();
+        }
+
+        ContarAlertaDataResponse cantidadAlertaDataResponse = new ContarAlertaDataResponse();
+        cantidadAlertaDataResponse.setCantidad(cantidad);
+
+        Metadata metadata = new Metadata();
+        metadata.setStatus(HttpStatus.OK.value());
+        metadata.setMessage("El proceso fue exitoso.");
+
+        ContarAlertaResponse response = new ContarAlertaResponse();
+        response.setMetadata(metadata);
+        response.setData(cantidadAlertaDataResponse);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<ListarAccionAlertaResponse> listarAccionAlerta() {
         List<AccionAlertaEntity> lista = alertaRepository.listarAccionAlerta();
 
@@ -132,6 +159,33 @@ public class AlertaService implements AlertasApiDelegate {
         ListarProteccionAlertaResponse response = new ListarProteccionAlertaResponse();
         response.setMetadata(metadata);
         response.setData(listaReponse);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<ContarProteccionAlertaResponse> contarProteccionAlerta(String fechaInicio, String fechaFin) {
+        Integer cantidad;
+
+        if (fechaInicio != null && !fechaInicio.isEmpty()
+                && fechaFin != null && !fechaFin.isEmpty()) {
+            Date fechaInicioDate = DateUtil.getDateFromString(fechaInicio, DateUtil.DATE_FORMAT);
+            Date fechaFinDate = DateUtil.getDateFromString(fechaFin, DateUtil.DATE_FORMAT);
+            cantidad = alertaRepository.contarProteccionAlertaByFechas(fechaInicioDate, fechaFinDate);
+        } else {
+            cantidad = alertaRepository.contar();
+        }
+
+        ContarProteccionAlertaDataResponse contarProteccionAlertaDataResponse = new ContarProteccionAlertaDataResponse();
+        contarProteccionAlertaDataResponse.setCantidad(cantidad);
+
+        Metadata metadata = new Metadata();
+        metadata.setStatus(HttpStatus.OK.value());
+        metadata.setMessage("El proceso fue exitoso.");
+
+        ContarProteccionAlertaResponse response = new ContarProteccionAlertaResponse();
+        response.setMetadata(metadata);
+        response.setData(contarProteccionAlertaDataResponse);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

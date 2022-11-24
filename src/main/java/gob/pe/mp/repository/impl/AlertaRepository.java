@@ -31,8 +31,18 @@ public class AlertaRepository implements IAlertaRepository {
     }
 
     @Override
+    public Integer contar() {
+        return alertaMapper.contar();
+    }
+
+    @Override
     public List<AlertaEntity> listarByFechas(Date fechaInicio, Date fechaFin) {
         return alertaMapper.listarByFechas(fechaInicio, fechaFin);
+    }
+
+    @Override
+    public Integer contarByFechas(Date fechaInicio, Date fechaFin) {
+        return alertaMapper.contarByFechas(fechaInicio, fechaFin);
     }
 
     @Override
@@ -58,6 +68,11 @@ public class AlertaRepository implements IAlertaRepository {
     @Override
     public List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin) {
         return alertaMapper.listarProteccionAlertaByFechas(fechaInicio, fechaFin);
+    }
+
+    @Override
+    public Integer contarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin) {
+        return alertaMapper.contarProteccionAlertaByFechas(fechaInicio, fechaFin);
     }
 
     @Override
