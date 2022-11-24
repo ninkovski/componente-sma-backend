@@ -1,0 +1,608 @@
+openapi: 3.0.3
+info:
+  title: API Integrador
+  description: Administrar las integraciones con el backend.
+  version: 1.0.0
+externalDocs:
+  description: Más información
+  url: https://mp.gob.pe/
+servers:
+- url: http://mp.gob.pe/
+paths:
+  /login:
+    post:
+      tags:
+      - Login
+      summary: Validar sesión.
+      description: |
+        Este método vaida la sesión del usuario.
+      operationId: login
+      requestBody:
+        required: true
+        description: Request requerido para la validación de la sesión.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /alertas:
+    post:
+      tags:
+      - Alerta
+      summary: Registrar alerta.
+      description: |
+        Este método permite registrar la alerta.
+      operationId: registrarAlerta
+      requestBody:
+        required: true
+        description: Request requerido para registrar la alerta.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarAlertaRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+    get:
+      tags:
+      - Alerta
+      summary: Listar alerta.
+      description: |
+        Este método permite registrar la alerta.
+      operationId: listarAlerta
+      parameters:
+      - name: fechaInicio
+        in: query
+        description: Fecha de inicio que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '5/07/2022'
+      - name: fechaFin
+        in: query
+        description: Fecha de fin que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '6/07/2022'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /alertas/accion:
+    post:
+      tags:
+      - Alerta
+      summary: Registrar acción alerta.
+      description: |
+        Este método permite registrar la acción alerta.
+      operationId: registrarAccionAlerta
+      requestBody:
+        required: true
+        description: Request requerido para registrar la acción alerta.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarAccionAlertaRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarAccionAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+    get:
+      tags:
+      - Alerta
+      summary: Listar ación alerta.
+      description: |
+        Este método permite registrar la acción alerta.
+      operationId: listarAccionAlerta
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarAccionAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /alertas/proteccion:
+    post:
+      tags:
+      - Alerta
+      summary: Registrar protección alerta.
+      description: |
+        Este método permite registrar la protección alerta.
+      operationId: registrarProteccionAlerta
+      requestBody:
+        required: true
+        description: Request requerido para registrar la preotección alerta.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarProteccionAlertaRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarProteccionAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+    get:
+      tags:
+      - Alerta
+      summary: Listar protección alerta.
+      description: |
+        Este método permite registrar la protección alerta.
+      operationId: listarProteccionAlerta
+      parameters:
+      - name: fechaInicio
+        in: query
+        description: Fecha de inicio que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '5/07/2022'
+      - name: fechaFin
+        in: query
+        description: Fecha de fin que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '6/07/2022'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarProteccionAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /alertas/denuncia:
+    post:
+      tags:
+      - Alerta
+      summary: Registrar denuncia alerta
+      description: |
+        Este método permite registrar una denuncia alerta.
+      operationId: registrarDenunciaAlerta
+      requestBody:
+        required: true
+        description: Request requerido para registrar una denuncia alerta.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarDenunciaAlertaRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarDenunciaAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        usuario:
+          type: string
+          minLength: 1
+          example: 'alexander@gmail.com'
+        clave:
+          type: string
+          minLength: 1
+          example: '123456'
+      required:
+      - usuario
+      - clave
+    RegistrarAlertaRequest:
+      type: object
+      properties:
+        idFiscal:
+          type: integer
+          example: 123
+        idDelito:
+          type: integer
+          example: 123
+        juridiccion:
+          type: string
+          minLength: 1
+          example: 'juridiccion'
+        dependenciaMPub:
+          type: string
+          minLength: 1
+          example: 'dependencia'
+        dependenciaPol:
+          type: string
+          minLength: 1
+          example: 'dependencia'
+        caso:
+          type: string
+          minLength: 1
+          example: 'caso'
+        fechaIngreso:
+          type: string
+          minLength: 1
+          example: '23/11/2022'
+        nombreAgraviado:
+          type: string
+          minLength: 1
+          example: 'Juan'
+        nombreImputado:
+          type: string
+          minLength: 1
+          example: 'Carlos'
+        sexo:
+          type: string
+          minLength: 1
+          example: 'MA'
+        idEstado:
+          type: integer
+          example: 1
+      required:
+      - idFiscal
+      - idDelito
+    RegistrarAccionAlertaRequest:
+      type: object
+      properties:
+        descripcion:
+          type: string
+          minLength: 1
+          example: 'Acción a'
+      required:
+      - descripcion
+    RegistrarProteccionAlertaRequest:
+      type: object
+      properties:
+        descripcion:
+          type: string
+          minLength: 1
+          example: 'Protección a'
+      required:
+      - descripcion
+    RegistrarDenunciaAlertaRequest:
+      type: object
+      properties:
+        idDenuncia:
+          type: integer
+          example: 1
+        idAlerta:
+          type: integer
+          example: 1
+        fechaRegistro:
+          type: string
+          minLength: 1
+          example: '23/11/2022'
+        usuarioRegistro:
+          type: string
+          minLength: 1
+          example: 'usuario'
+      required:
+      - idDenuncia
+      - idAlerta
+    LoginResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/LoginDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    RegistrarAlertaResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    RegistrarAccionAlertaResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    RegistrarProteccionAlertaResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    RegistrarDenunciaAlertaResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarAlertaResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarAlertaDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarAccionAlertaResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarAccionAlertaDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarProteccionAlertaResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarProteccionAlertaDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    LoginDataResponse:
+      type: object
+      properties:
+        estado:
+          type: boolean
+          example: true
+    ListarAlertaDataResponse:
+      type: object
+      properties:
+        idAlerta:
+          type: integer
+          example: 123
+        idFiscal:
+          type: integer
+          example: 123
+        idDelito:
+          type: integer
+          example: 123
+        juridiccion:
+          type: string
+          minLength: 1
+          example: 'juridiccion'
+        dependenciaMPub:
+          type: string
+          minLength: 1
+          example: 'dependencia'
+        dependenciaPol:
+          type: string
+          minLength: 1
+          example: 'dependencia'
+        caso:
+          type: string
+          minLength: 1
+          example: 'caso'
+        fechaIngreso:
+          type: string
+          minLength: 1
+          example: '23/11/2022'
+        nombreAgraviado:
+          type: string
+          minLength: 1
+          example: 'Juan'
+        nombreImputado:
+          type: string
+          minLength: 1
+          example: 'Carlos'
+        sexo:
+          type: string
+          minLength: 1
+          example: 'MA'
+        idEstado:
+          type: integer
+          example: 1
+      required:
+      - idFiscal
+      - idDelito
+    ListarAccionAlertaDataResponse:
+      type: object
+      properties:
+        idAccionAlerta:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'Accion alerta'
+    ListarProteccionAlertaDataResponse:
+      type: object
+      properties:
+        idProteccionAlerta:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'Protección alerta'
+    Metadata:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: La operación fue exitosa.
+    ApiResponse400:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 400
+        message:
+          type: string
+          example: Los datos ingresados son inválidos.
+    ApiResponse404:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 404
+        message:
+          type: string
+          example: El recurso no fue ubicado.
+    ApiResponse500:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 500
+        message:
+          type: string
+          example: >-
+            Ocurrió un error no esperado, por favor comuníquese con el área de
+            soporte.
