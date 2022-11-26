@@ -266,13 +266,13 @@ paths:
     post:
       tags:
       - Alerta
-      summary: Registrar protección alerta.
+      summary: Registrar medida protección.
       description: |
-        Este método permite registrar la protección alerta.
+        Este método permite registrar la medida protección.
       operationId: registrarProteccionAlerta
       requestBody:
         required: true
-        description: Request requerido para registrar la preotección alerta.
+        description: Request requerido para registrar la medida preotección.
         content:
           application/json:
             schema:
@@ -305,9 +305,9 @@ paths:
     get:
       tags:
       - Alerta
-      summary: Listar protección alerta.
+      summary: Listar medida protección.
       description: |
-        Este método permite registrar la protección alerta.
+        Este método permite listar la medida protección.
       operationId: listarProteccionAlerta
       parameters:
       - name: fechaInicio
@@ -353,9 +353,9 @@ paths:
     get:
       tags:
       - Alerta
-      summary: Contar medida protección alerta.
+      summary: Contar medida protección.
       description: |
-        Este método permite contar la medida protección alerta.
+        Este método permite contar la medida protección.
       operationId: contarProteccionAlerta
       parameters:
       - name: fechaInicio
@@ -397,6 +397,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
+  /alertas/accion-proteccion:
+    post:
+      tags:
+      - Alerta
+      summary: Registrar alerta-accion-medida proteccion.
+      description: |
+        Este método permite registrar la alerta asociada a la acción y/o medida protección.
+      operationId: registrarAlertaAccionProteccion
+      requestBody:
+        required: true
+        description: Request requerido para registrar la alerta acción medida protección.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarAlertaAccionProteccionRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarAlertaAccionProteccionResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
   /alertas/denuncia:
     post:
       tags:
@@ -419,6 +459,126 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegistrarDenunciaAlertaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /notificaciones/email:
+    post:
+      tags:
+      - Notificacion
+      summary: Enviar emails.
+      description: |
+        Este método permitirá enviar emails.
+      operationId: enviarEmail
+      requestBody:
+        required: true
+        description: Request requerido para el envío de los emails.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnviarEmailMRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnviarEmailResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /notificaciones/sms:
+    post:
+      tags:
+      - Notificacion
+      summary: Enviar sms.
+      description: |
+        Este método permitirá enviar sms.
+      operationId: enviarSms
+      requestBody:
+        required: true
+        description: Request requerido para el envío de los sms.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnviarSmsRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnviarSmsResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /notificaciones/whatsapp:
+    post:
+      tags:
+      - Notificacion
+      summary: Enviar whatsapp.
+      description: |
+        Este método permitirá enviar whatsapp.
+      operationId: enviarWhatsapp
+      requestBody:
+        required: true
+        description: Request requerido para el envío de los whatsapps.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnviarWhatsappRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnviarWhatsappResponse'
         '400':
           description: Datos no válidos
           content:
@@ -518,6 +678,37 @@ components:
           example: 'Protección a'
       required:
       - descripcion
+    RegistrarAlertaAccionProteccionRequest:
+      type: object
+      properties:
+        idAlerta:
+          type: integer
+          example: 123
+        idAccion:
+          type: integer
+          example: 123
+        detalleAccion:
+          type: string
+          minLength: 1
+          example: 'Acción A'
+        idMedidaProteccion:
+          type: integer
+          example: 123
+        detalleMedidaProteccion:
+          type: string
+          minLength: 1
+          example: 'Medida protección A'
+        usuarioRegistro:
+          type: string
+          minLength: 1
+          example: 'usuario'
+        fechaRegistro:
+          type: string
+          minLength: 1
+          example: '23/11/2022'
+      required:
+      - idFiscal
+      - idDelito
     RegistrarDenunciaAlertaRequest:
       type: object
       properties:
@@ -538,6 +729,114 @@ components:
       required:
       - idDenuncia
       - idAlerta
+    EnviarEmailMRequest:
+      type: object
+      properties:
+        para:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            example: 'alexander@gmail.com'
+        enCopia:
+          type: array
+          items:
+            type: string
+            example: 'juan@gmail.com'
+        asunto:
+          type: string
+          minLength: 1
+          example: 'Asunto'
+        nombreAgraviada:
+          type: string
+          minLength: 1
+          example: 'Luisa Vega'
+        numeroDocAgraviada:
+          type: string
+          minLength: 1
+          example: '21764538'
+        nombreAgraviante:
+          type: string
+          minLength: 1
+          example: 'Carlos Soto'
+        numeroDocAgraviante:
+          type: string
+          minLength: 1
+          example: '21241538'
+        nombreFiscalia:
+          type: string
+          minLength: 1
+          example: 'N° 1'
+      required:
+      - para
+      - asunto
+      - nombreAgraviada
+      - numeroDocAgraviada
+      - nombreAgraviante
+      - numeroDocAgraviante
+      - nombreFiscalia
+    EnviarSmsRequest:
+      type: object
+      properties:
+        para:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            example: '992731245'
+        nombreAgraviada:
+          type: string
+          example: 'Luisa Vega'
+        numeroDocAgraviada:
+          type: string
+          example: '21764538'
+        nombreAgraviante:
+          type: string
+          example: 'Carlos Soto'
+        numeroDocAgraviante:
+          type: string
+          example: '21241538'
+        nombreFiscalia:
+          type: string
+          example: 'N° 1'
+      required:
+      - para
+      - nombreAgraviada
+      - numeroDocAgraviada
+      - nombreAgraviante
+      - numeroDocAgraviante
+      - nombreFiscalia
+    EnviarWhatsappRequest:
+      type: object
+      properties:
+        para:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            example: '992731245'
+        nombreAgraviada:
+          type: string
+          example: 'Luisa Vega'
+        numeroDocAgraviada:
+          type: string
+          example: '21764538'
+        nombreAgraviante:
+          type: string
+          example: 'Carlos Soto'
+        numeroDocAgraviante:
+          type: string
+          example: '21241538'
+        nombreFiscalia:
+          type: string
+          example: 'N° 1'
+      required:
+      - para
+      - nombreAgraviada
+      - numeroDocAgraviada
+      - nombreAgraviante
+      - numeroDocAgraviante
+      - nombreFiscalia
     LoginResponse:
       type: object
       properties:
@@ -556,6 +855,11 @@ components:
         metadata:
           $ref: '#/components/schemas/Metadata'
     RegistrarProteccionAlertaResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    RegistrarAlertaAccionProteccionResponse:
       type: object
       properties:
         metadata:
@@ -621,9 +925,15 @@ components:
         idFiscal:
           type: integer
           example: 123
+        nombresFiscal:
+          type: string
+          example: 'Juan Soto Vega'
         idDelito:
           type: integer
           example: 123
+        detalleDelito:
+          type: string
+          example: 'Delito A'
         juridiccion:
           type: string
           minLength: 1
@@ -659,6 +969,9 @@ components:
         idEstado:
           type: integer
           example: 1
+        descripcionEstado:
+          type: string
+          example: 'Estado A'
       required:
       - idFiscal
       - idDelito
@@ -692,6 +1005,21 @@ components:
         cantidad:
           type: integer
           example: 123
+    EnviarEmailResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    EnviarSmsResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    EnviarWhatsappResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     Metadata:
       type: object
       properties:

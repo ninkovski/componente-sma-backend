@@ -17,7 +17,11 @@ public class AlertaEntity {
 
     private Integer id_alerta;
     private Integer id_fiscal;
+    private String nombres;
+    private String apellido_paterno;
+    private String apellido_materno;
     private Integer id_delito;
+    private String tx_detalle_delito;
     private String de_dis_judi;
     private String de_depe_mpub;
     private String de_depe_poli;
@@ -27,4 +31,5 @@ public class AlertaEntity {
     private String nombres_imputado;
     private String ti_sexo;
     private Integer id_estado;
+    private String descripcion;
 }

@@ -76,6 +76,13 @@ public class AlertaRepository implements IAlertaRepository {
     }
 
     @Override
+    public void insertarAlertaAccionMedidaProteccion(Integer idAlerta, Integer idAccion, String detalleAccion, Integer idMedidaProteccion,
+                                                     String detalleMedidaProteccion, Date fecRegistro, String usuarioRegistro) {
+        alertaMapper.insertarAlertaAccionMedidaProteccion(idAlerta, idAccion, detalleAccion, idMedidaProteccion,
+                detalleMedidaProteccion, fecRegistro, usuarioRegistro);
+    }
+
+    @Override
     public void insertarDenunciaAlerta(Integer idDenuncia, Integer idAlerta, Date fechRegistro, String usuarioRegistro) {
         alertaMapper.insertarDenunciaAlerta(idDenuncia, idAlerta, fechRegistro, usuarioRegistro);
     }

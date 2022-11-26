@@ -25,7 +25,14 @@ public interface AlertaMapper {
                   @Param("fecIngCaso") Date fecIngCaso, @Param("nombreAgraviado") String nombreAgraviado,
                   @Param("nombreImputado") String nombreImputado, @Param("sexo") String sexo, @Param("idEstado") Integer idEstado);
 
-    @Select(value = "SELECT * FROM \"TB_ALERTA\"")
+    @Select(value = "SELECT " +
+            "TA.\"ID_ALERTA\",TA.\"ID_FISCAL\",TF.\"NOMBRES\",TF.\"APELLIDO_PATERNO\",TF.\"APELLIDO_MATERNO\",TA.\"ID_DELITO\",TD.\"TX_DETALLE_DELITO\"," +
+            "TA.\"DE_DIS_JUDI\",TA.\"DE_DEPE_MPUB\",TA.\"DE_DEPE_POLI\",TA.\"CASO\",TA.\"FEC_ING_CASO\",TA.\"NOMBRES_AGRAVIADO\"," +
+            "TA.\"NOMBRES_IMPUTADO\",TA.\"TI_SEXO\",TA.\"ID_ESTADO\",TE.\"DESCRIPCION\" " +
+            "FROM \"TB_ALERTA\" TA " +
+            "INNER JOIN \"TB_FISCAL\" TF ON TA.\"ID_FISCAL\"=TF.\"ID_FISCAL\" " +
+            "INNER JOIN \"TB_DELITO\" TD ON TA.\"ID_DELITO\"=TD.\"ID_DELITO\" " +
+            "INNER JOIN \"TB_ESTADO\" TE ON TA.\"ID_ESTADO\"=TE.\"ID_ESTADO\" ")
     @Options(statementType = StatementType.CALLABLE)
     List<AlertaEntity> listar();
 
@@ -33,7 +40,15 @@ public interface AlertaMapper {
     @Options(statementType = StatementType.CALLABLE)
     Integer contar();
 
-    @Select(value = "SELECT * FROM \"TB_ALERTA\" WHERE CAST (\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
+    @Select(value = "SELECT " +
+            "TA.\"ID_ALERTA\",TA.\"ID_FISCAL\",TF.\"NOMBRES\",TF.\"APELLIDO_PATERNO\",TF.\"APELLIDO_MATERNO\",TA.\"ID_DELITO\",TD.\"TX_DETALLE_DELITO\"," +
+            "TA.\"DE_DIS_JUDI\",TA.\"DE_DEPE_MPUB\",TA.\"DE_DEPE_POLI\",TA.\"CASO\",TA.\"FEC_ING_CASO\",TA.\"NOMBRES_AGRAVIADO\"," +
+            "TA.\"NOMBRES_IMPUTADO\",TA.\"TI_SEXO\",TA.\"ID_ESTADO\",TE.\"DESCRIPCION\" " +
+            "FROM \"TB_ALERTA\" TA " +
+            "INNER JOIN \"TB_FISCAL\" TF ON TA.\"ID_FISCAL\"=TF.\"ID_FISCAL\" " +
+            "INNER JOIN \"TB_DELITO\" TD ON TA.\"ID_DELITO\"=TD.\"ID_DELITO\" " +
+            "INNER JOIN \"TB_ESTADO\" TE ON TA.\"ID_ESTADO\"=TE.\"ID_ESTADO\" " +
+            "WHERE CAST (TA.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
     List<AlertaEntity> listarByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
@@ -68,6 +83,15 @@ public interface AlertaMapper {
             "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=taap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
     Integer contarProteccionAlertaByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
+
+    @Insert(value = "INSERT INTO \"TB_ALERTA_ACION_PROTECCION\"" +
+            "(\"ID_ALERTA\",\"ID_ACCION_ALERTA\",\"DETALLE_ACCION\",\"ID_MED_PROTECCION\"," +
+            "\"DETALLE_MEDIDA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
+            "VALUES (#{idAlerta},#{idAccion},#{detalleAccion},#{idMedidaProteccion}," +
+            "#{detalleMedidaProteccion},#{fecRegistro},#{usuarioRegistro})")
+    void insertarAlertaAccionMedidaProteccion(@Param("idAlerta") Integer idAlerta, @Param("idAccion") Integer idAccion, @Param("detalleAccion") String detalleAccion,
+                                              @Param("idMedidaProteccion") Integer idMedidaProteccion, @Param("detalleMedidaProteccion") String detalleMedidaProteccion,
+                                              @Param("fecRegistro") Date fecRegistro, @Param("usuarioRegistro") String usuarioRegistro);
 
     @Insert(value = "INSERT INTO \"TB_DENUNCIA_ALERTA\"" +
             "(\"ID_DENUNCIA_ALERTA\",\"ID_ALERTA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +

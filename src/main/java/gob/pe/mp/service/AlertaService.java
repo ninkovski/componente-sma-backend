@@ -205,6 +205,27 @@ public class AlertaService implements AlertasApiDelegate {
     }
 
     @Override
+    public ResponseEntity<RegistrarAlertaAccionProteccionResponse> registrarAlertaAccionProteccion(
+            RegistrarAlertaAccionProteccionRequest request) {
+        Date fecha = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATE_FORMAT);
+
+        alertaRepository.insertarAlertaAccionMedidaProteccion(
+                request.getIdAlerta(), request.getIdAccion(), request.getDetalleAccion(),
+                request.getIdMedidaProteccion(), request.getDetalleMedidaProteccion(), fecha,
+                request.getUsuarioRegistro()
+        );
+
+        Metadata metadata = new Metadata();
+        metadata.setStatus(HttpStatus.OK.value());
+        metadata.setMessage("El proceso fue exitoso.");
+
+        RegistrarAlertaAccionProteccionResponse response = new RegistrarAlertaAccionProteccionResponse();
+        response.setMetadata(metadata);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<RegistrarDenunciaAlertaResponse> registrarDenunciaAlerta(RegistrarDenunciaAlertaRequest request) {
         alertaRepository.insertarDenunciaAlerta(
                 request.getIdDenuncia(), request.getIdAlerta(),
@@ -225,7 +246,13 @@ public class AlertaService implements AlertasApiDelegate {
         ListarAlertaDataResponse response = new ListarAlertaDataResponse();
         response.setIdAlerta(entity.getId_alerta());
         response.setIdFiscal(entity.getId_fiscal());
+        response.setNombresFiscal(
+                (entity.getNombres() != null ? (entity.getNombres() + " ") : "") +
+                        (entity.getApellido_paterno() != null ? (entity.getApellido_paterno() + " ") : "") +
+                        (entity.getApellido_materno() != null ? entity.getApellido_materno() : "")
+        );
         response.setIdDelito(entity.getId_delito());
+        response.setDetalleDelito(entity.getTx_detalle_delito() != null ? entity.getTx_detalle_delito() : "");
         response.setJuridiccion(entity.getDe_dis_judi());
         response.setDependenciaMPub(entity.getDe_depe_mpub());
         response.setDependenciaPol(entity.getDe_depe_poli());
@@ -235,6 +262,7 @@ public class AlertaService implements AlertasApiDelegate {
         response.setNombreImputado(entity.getNombres_imputado());
         response.setSexo(entity.getTi_sexo());
         response.setIdEstado(entity.getId_estado());
+        response.setDescripcionEstado(entity.getDescripcion() != null ? entity.getDescripcion() : "");
 
         return response;
     }
