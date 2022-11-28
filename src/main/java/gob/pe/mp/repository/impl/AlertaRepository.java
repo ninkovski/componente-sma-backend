@@ -66,6 +66,11 @@ public class AlertaRepository implements IAlertaRepository {
     }
 
     @Override
+    public Integer contarProteccionAlerta() {
+        return alertaMapper.contarProteccionAlerta();
+    }
+
+    @Override
     public List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin) {
         return alertaMapper.listarProteccionAlertaByFechas(fechaInicio, fechaFin);
     }

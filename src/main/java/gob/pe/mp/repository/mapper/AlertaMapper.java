@@ -70,6 +70,10 @@ public interface AlertaMapper {
     @Options(statementType = StatementType.CALLABLE)
     List<ProteccionAlertaEntity> listarProteccionAlerta();
 
+    @Select(value = "SELECT COUNT(\"ID_MED_PROTECCION\") FROM \"TB_MEDIDA_PROTECCION\"")
+    @Options(statementType = StatementType.CALLABLE)
+    Integer contarProteccionAlerta();
+
     @Select(value = "SELECT tbp.*" +
             "FROM \"TB_MEDIDA_PROTECCION\" tbp " +
             "INNER JOIN \"TB_ALERTA_ACION_PROTECCION\" taap on tbp.\"ID_MED_PROTECCION\"=taap.\"ID_MED_PROTECCION\" " +

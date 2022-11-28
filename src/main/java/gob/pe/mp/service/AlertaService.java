@@ -173,7 +173,7 @@ public class AlertaService implements AlertasApiDelegate {
             Date fechaFinDate = DateUtil.getDateFromString(fechaFin, DateUtil.DATE_FORMAT);
             cantidad = alertaRepository.contarProteccionAlertaByFechas(fechaInicioDate, fechaFinDate);
         } else {
-            cantidad = alertaRepository.contar();
+            cantidad = alertaRepository.contarProteccionAlerta();
         }
 
         ContarProteccionAlertaDataResponse contarProteccionAlertaDataResponse = new ContarProteccionAlertaDataResponse();

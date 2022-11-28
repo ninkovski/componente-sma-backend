@@ -23,6 +23,7 @@ public interface IAlertaRepository {
 
     void insertarProteccionAlerta(String descripcion);
     List<ProteccionAlertaEntity> listarProteccionAlerta();
+    Integer contarProteccionAlerta();
     List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin);
     Integer contarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin);
 
