@@ -477,6 +477,143 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
+  /catalogos:
+    get:
+      tags:
+      - Catalogo
+      summary: Listar catálogo.
+      description: |
+        Este método permite listar el catálogo.
+      operationId: listarCatalogo
+      parameters:
+      - name: codigoPadre
+        in: query
+        description: Código padre del catálogo que se ingresa como filtro
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: codigoHijo
+        in: query
+        description: Código hijo del catálogo que se ingresa como filtro
+        required: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarCatalogoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /paises:
+    get:
+      tags:
+      - Pais
+      summary: Listar pais.
+      description: |
+        Este método permite listar los paises.
+      operationId: listarPais
+      parameters:
+      - name: codigo
+        in: query
+        description: Código del pais que se ingresa como filtro
+        required: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarPaisResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /ubigeos:
+    get:
+      tags:
+      - Ubigeo
+      summary: Listar ubigeo.
+      description: |
+        Este método permite listar ubigeo.
+      operationId: listarUbigeo
+      parameters:
+      - name: codigoDepartamento
+        in: query
+        description: Código del pais que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '1'
+      - name: codigoProvincia
+        in: query
+        description: Código de la provincia que se ingresa como filtro
+        required: false
+        schema:
+          type: string
+          example: '1'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarUbigeoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
   /notificaciones/email:
     post:
       tags:
@@ -1005,6 +1142,60 @@ components:
         cantidad:
           type: integer
           example: 123
+    ListarCatalogoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarCatalogoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarCatalogoDataResponse:
+      type: object
+      properties:
+        idSubGrupo:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'SOLTERO'
+    ListarPaisResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarPaisDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarPaisDataResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'ANDORRA'
+    ListarUbigeoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarUbigeoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarUbigeoDataResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'BAGUA'
     EnviarEmailResponse:
       type: object
       properties:
