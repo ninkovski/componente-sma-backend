@@ -17,18 +17,19 @@ public interface AlertaMapper {
     @Insert(value = "INSERT INTO \"TB_ALERTA\"" +
             "(\"ID_FISCAL\",\"ID_DELITO\",\"DE_DIS_JUDI\",\"DE_DEPE_MPUB\"," +
             "\"DE_DEPE_POLI\",\"CASO\",\"FEC_ING_CASO\",\"NOMBRES_AGRAVIADO\",\"NOMBRES_IMPUTADO\"," +
-            "\"TI_SEXO\",\"ID_ESTADO\") " +
+            "\"TI_SEXO\",\"ID_ESTADO\",\"ID_TB_FICHA_RECA\",\"FEC_REGISTRO_NUEVO\") " +
             "VALUES (#{idFiscal},#{idDelito},#{juridiccion},#{depMipub},#{depPol},#{caso}," +
-            "#{fecIngCaso},#{nombreAgraviado},#{nombreImputado},#{sexo},#{idEstado})")
+            "#{fecIngCaso},#{nombreAgraviado},#{nombreImputado},#{sexo},#{idEstado},#{idFichaReca},#{fecRegistro})")
     void insertar(@Param("idFiscal") Integer idFiscal, @Param("idDelito") Integer idDelito, @Param("juridiccion") String juridiccion,
                   @Param("depMipub") String depMipub, @Param("depPol") String depPol, @Param("caso") String caso,
                   @Param("fecIngCaso") Date fecIngCaso, @Param("nombreAgraviado") String nombreAgraviado,
-                  @Param("nombreImputado") String nombreImputado, @Param("sexo") String sexo, @Param("idEstado") Integer idEstado);
+                  @Param("nombreImputado") String nombreImputado, @Param("sexo") String sexo, @Param("idEstado") Integer idEstado,
+                  @Param("idFichaReca") Integer idFichaReca, @Param("fecRegistro") Date fecRegistro);
 
     @Select(value = "SELECT " +
             "TA.\"ID_ALERTA\",TA.\"ID_FISCAL\",TF.\"NOMBRES\",TF.\"APELLIDO_PATERNO\",TF.\"APELLIDO_MATERNO\",TA.\"ID_DELITO\",TD.\"TX_DETALLE_DELITO\"," +
             "TA.\"DE_DIS_JUDI\",TA.\"DE_DEPE_MPUB\",TA.\"DE_DEPE_POLI\",TA.\"CASO\",TA.\"FEC_ING_CASO\",TA.\"NOMBRES_AGRAVIADO\"," +
-            "TA.\"NOMBRES_IMPUTADO\",TA.\"TI_SEXO\",TA.\"ID_ESTADO\",TE.\"DESCRIPCION\" " +
+            "TA.\"NOMBRES_IMPUTADO\",TA.\"TI_SEXO\",TA.\"ID_ESTADO\",TE.\"DESCRIPCION\",TA.\"ID_TB_FICHA_RECA\",TA.\"FEC_REGISTRO_NUEVO\" " +
             "FROM \"TB_ALERTA\" TA " +
             "INNER JOIN \"TB_FISCAL\" TF ON TA.\"ID_FISCAL\"=TF.\"ID_FISCAL\" " +
             "INNER JOIN \"TB_DELITO\" TD ON TA.\"ID_DELITO\"=TD.\"ID_DELITO\" " +
@@ -43,7 +44,7 @@ public interface AlertaMapper {
     @Select(value = "SELECT " +
             "TA.\"ID_ALERTA\",TA.\"ID_FISCAL\",TF.\"NOMBRES\",TF.\"APELLIDO_PATERNO\",TF.\"APELLIDO_MATERNO\",TA.\"ID_DELITO\",TD.\"TX_DETALLE_DELITO\"," +
             "TA.\"DE_DIS_JUDI\",TA.\"DE_DEPE_MPUB\",TA.\"DE_DEPE_POLI\",TA.\"CASO\",TA.\"FEC_ING_CASO\",TA.\"NOMBRES_AGRAVIADO\"," +
-            "TA.\"NOMBRES_IMPUTADO\",TA.\"TI_SEXO\",TA.\"ID_ESTADO\",TE.\"DESCRIPCION\" " +
+            "TA.\"NOMBRES_IMPUTADO\",TA.\"TI_SEXO\",TA.\"ID_ESTADO\",TE.\"DESCRIPCION\",TA.\"ID_TB_FICHA_RECA\",TA.\"FEC_REGISTRO_NUEVO\" " +
             "FROM \"TB_ALERTA\" TA " +
             "INNER JOIN \"TB_FISCAL\" TF ON TA.\"ID_FISCAL\"=TF.\"ID_FISCAL\" " +
             "INNER JOIN \"TB_DELITO\" TD ON TA.\"ID_DELITO\"=TD.\"ID_DELITO\" " +
@@ -76,26 +77,29 @@ public interface AlertaMapper {
 
     @Select(value = "SELECT tbp.*" +
             "FROM \"TB_MEDIDA_PROTECCION\" tbp " +
-            "INNER JOIN \"TB_ALERTA_ACION_PROTECCION\" taap on tbp.\"ID_MED_PROTECCION\"=taap.\"ID_MED_PROTECCION\" " +
-            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=taap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
+            "INNER JOIN \"TB_ALERTA_PROTECCION\" tap on tbp.\"ID_MED_PROTECCION\"=tap.\"ID_MED_PROTECCION\" " +
+            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=tap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
     List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
     @Select(value = "SELECT count(tbp.\"ID_MED_PROTECCION\") " +
             "FROM \"TB_MEDIDA_PROTECCION\" tbp " +
-            "INNER JOIN \"TB_ALERTA_ACION_PROTECCION\" taap on tbp.\"ID_MED_PROTECCION\"=taap.\"ID_MED_PROTECCION\" " +
-            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=taap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
+            "INNER JOIN \"TB_ALERTA_PROTECCION\" tap on tbp.\"ID_MED_PROTECCION\"=tap.\"ID_MED_PROTECCION\" " +
+            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=tap.\"ID_ALERTA\" where CAST (ta.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
     Integer contarProteccionAlertaByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
-    @Insert(value = "INSERT INTO \"TB_ALERTA_ACION_PROTECCION\"" +
-            "(\"ID_ALERTA\",\"ID_ACCION_ALERTA\",\"DETALLE_ACCION\",\"ID_MED_PROTECCION\"," +
-            "\"DETALLE_MEDIDA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
-            "VALUES (#{idAlerta},#{idAccion},#{detalleAccion},#{idMedidaProteccion}," +
-            "#{detalleMedidaProteccion},#{fecRegistro},#{usuarioRegistro})")
-    void insertarAlertaAccionMedidaProteccion(@Param("idAlerta") Integer idAlerta, @Param("idAccion") Integer idAccion, @Param("detalleAccion") String detalleAccion,
-                                              @Param("idMedidaProteccion") Integer idMedidaProteccion, @Param("detalleMedidaProteccion") String detalleMedidaProteccion,
-                                              @Param("fecRegistro") Date fecRegistro, @Param("usuarioRegistro") String usuarioRegistro);
+    @Insert(value = "INSERT INTO \"TB_ALERTA_ACION\"" +
+            "(\"ID_ALERTA\",\"ID_ACCION_ALERTA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
+            "VALUES (#{idAlerta},#{idAccion},#{fecRegistro},#{usuarioRegistro})")
+    void insertarAlertaAccion(@Param("idAlerta") Integer idAlerta, @Param("idAccion") Integer idAccion,
+                              @Param("fecRegistro") Date fecRegistro, @Param("usuarioRegistro") String usuarioRegistro);
+
+    @Insert(value = "INSERT INTO \"TB_ALERTA_PROTECCION\"" +
+            "(\"ID_ALERTA\",\"ID_MED_PROTECCION\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
+            "VALUES (#{idAlerta},#{idMedidaProteccion},#{fecRegistro},#{usuarioRegistro})")
+    void insertarAlertaMedidaProteccion(@Param("idAlerta") Integer idAlerta, @Param("idMedidaProteccion") Integer idMedidaProteccion,
+                                        @Param("fecRegistro") Date fecRegistro, @Param("usuarioRegistro") String usuarioRegistro);
 
     @Insert(value = "INSERT INTO \"TB_DENUNCIA_ALERTA\"" +
             "(\"ID_DENUNCIA_ALERTA\",\"ID_ALERTA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +

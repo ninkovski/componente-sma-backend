@@ -32,4 +32,6 @@ public class AlertaEntity {
     private String ti_sexo;
     private Integer id_estado;
     private String descripcion;
+    private Integer id_tb_ficha_reca;
+    private Date fec_registro_nuevo;
 }

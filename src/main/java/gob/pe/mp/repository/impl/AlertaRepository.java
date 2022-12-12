@@ -20,9 +20,9 @@ public class AlertaRepository implements IAlertaRepository {
     @Override
     public void insertar(Integer idFiscal, Integer idDelito, String disJuridiccion, String depeMpub,
                          String depePol, String caso, Date fechIngcaso, String nombresAgraviado,
-                         String nombreImputado, String sexo, Integer idEstado) {
-        alertaMapper.insertar(idFiscal, idDelito, disJuridiccion, depeMpub, depePol, caso,
-                fechIngcaso, nombresAgraviado, nombreImputado, sexo, idEstado);
+                         String nombreImputado, String sexo, Integer idEstado, Integer idFichaReca, Date fecRegistro) {
+        alertaMapper.insertar(idFiscal, idDelito, disJuridiccion, depeMpub, depePol, caso, fechIngcaso, nombresAgraviado,
+                nombreImputado, sexo, idEstado, idFichaReca, fecRegistro);
     }
 
     @Override
@@ -81,10 +81,13 @@ public class AlertaRepository implements IAlertaRepository {
     }
 
     @Override
-    public void insertarAlertaAccionMedidaProteccion(Integer idAlerta, Integer idAccion, String detalleAccion, Integer idMedidaProteccion,
-                                                     String detalleMedidaProteccion, Date fecRegistro, String usuarioRegistro) {
-        alertaMapper.insertarAlertaAccionMedidaProteccion(idAlerta, idAccion, detalleAccion, idMedidaProteccion,
-                detalleMedidaProteccion, fecRegistro, usuarioRegistro);
+    public void insertarAlertaAccion(Integer idAlerta, Integer idAccion, Date fecRegistro, String usuarioRegistro) {
+        alertaMapper.insertarAlertaAccion(idAlerta, idAccion, fecRegistro, usuarioRegistro);
+    }
+
+    @Override
+    public void insertarAlertaMedidaProteccion(Integer idAlerta, Integer idMedidaProteccion, Date fecRegistro, String usuarioRegistro) {
+        alertaMapper.insertarAlertaMedidaProteccion(idAlerta, idMedidaProteccion, fecRegistro, usuarioRegistro);
     }
 
     @Override

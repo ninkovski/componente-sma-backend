@@ -24,13 +24,14 @@ public class AlertaService implements AlertasApiDelegate {
 
     @Override
     public ResponseEntity<RegistrarAlertaResponse> registrarAlerta(RegistrarAlertaRequest request) {
-        Date fecha = DateUtil.getDateFromString(request.getFechaIngreso(), DateUtil.DATE_FORMAT);
+        Date fechaIngreso = DateUtil.getDateFromString(request.getFechaIngreso(), DateUtil.DATETIME_FORMAT);
+        Date fechaRegistro = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATETIME_FORMAT);
 
         alertaRepository.insertar(
                 request.getIdFiscal(), request.getIdDelito(), request.getJuridiccion(),
                 request.getDependenciaMPub(), request.getDependenciaPol(), request.getCaso(),
-                fecha, request.getNombreAgraviado(), request.getNombreImputado(), request.getSexo(),
-                request.getIdEstado()
+                fechaIngreso, request.getNombreAgraviado(), request.getNombreImputado(), request.getSexo(),
+                request.getIdEstado(), request.getIdFichaReca(), fechaRegistro
         );
 
         Metadata metadata = new Metadata();
@@ -146,7 +147,6 @@ public class AlertaService implements AlertasApiDelegate {
             lista = alertaRepository.listarProteccionAlerta();
         }
 
-
         List<ListarProteccionAlertaDataResponse> listaReponse = lista
                 .stream()
                 .map(this::obtenerDataResponse)
@@ -205,21 +205,32 @@ public class AlertaService implements AlertasApiDelegate {
     }
 
     @Override
-    public ResponseEntity<RegistrarAlertaAccionProteccionResponse> registrarAlertaAccionProteccion(
-            RegistrarAlertaAccionProteccionRequest request) {
-        Date fecha = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATE_FORMAT);
+    public ResponseEntity<RegistrarAlertaAccionResponse> registrarAlertaAccion(RegistrarAlertaAccionRequest request) {
+        Date fecha = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATETIME_FORMAT);
 
-        alertaRepository.insertarAlertaAccionMedidaProteccion(
-                request.getIdAlerta(), request.getIdAccion(), request.getDetalleAccion(),
-                request.getIdMedidaProteccion(), request.getDetalleMedidaProteccion(), fecha,
-                request.getUsuarioRegistro()
-        );
+        alertaRepository.insertarAlertaAccion(request.getIdAlerta(), request.getIdAccion(), fecha, request.getUsuarioRegistro());
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
         metadata.setMessage("El proceso fue exitoso.");
 
-        RegistrarAlertaAccionProteccionResponse response = new RegistrarAlertaAccionProteccionResponse();
+        RegistrarAlertaAccionResponse response = new RegistrarAlertaAccionResponse();
+        response.setMetadata(metadata);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<RegistrarAlertaProteccionResponse> registrarAlertamMedidaProteccin(RegistrarAlertaProteccionRequest request) {
+        Date fecha = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATETIME_FORMAT);
+
+        alertaRepository.insertarAlertaMedidaProteccion(request.getIdAlerta(), request.getIdMedidaProteccion(), fecha, request.getUsuarioRegistro());
+
+        Metadata metadata = new Metadata();
+        metadata.setStatus(HttpStatus.OK.value());
+        metadata.setMessage("El proceso fue exitoso.");
+
+        RegistrarAlertaProteccionResponse response = new RegistrarAlertaProteccionResponse();
         response.setMetadata(metadata);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -257,12 +268,17 @@ public class AlertaService implements AlertasApiDelegate {
         response.setDependenciaMPub(entity.getDe_depe_mpub());
         response.setDependenciaPol(entity.getDe_depe_poli());
         response.setCaso(entity.getCaso());
-        response.setFechaIngreso(DateUtil.getStringFromDate(entity.getFec_ing_caso(), DateUtil.DATE_FORMAT));
+        response.setFechaIngreso(DateUtil.getStringFromDate(entity.getFec_ing_caso(), DateUtil.DATETIME_FORMAT));
         response.setNombreAgraviado(entity.getNombres_agraviado());
         response.setNombreImputado(entity.getNombres_imputado());
         response.setSexo(entity.getTi_sexo());
         response.setIdEstado(entity.getId_estado());
         response.setDescripcionEstado(entity.getDescripcion() != null ? entity.getDescripcion() : "");
+        response.setIdFichaReca(entity.getId_tb_ficha_reca());
+
+        if (entity.getFec_registro_nuevo() != null) {
+            response.setFechaRegistro(DateUtil.getStringFromDate(entity.getFec_registro_nuevo(), DateUtil.DATETIME_FORMAT));
+        }
 
         return response;
     }
