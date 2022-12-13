@@ -103,7 +103,7 @@ public class FichaRecaService implements FichasRecaApiDelegate {
     }
 
     private void actualizarAlertaConIdFichaReca(Integer idAlerta, Integer idFichaReca) {
-        if (idFichaReca != null) {
+        if (idAlerta != null && idFichaReca != null) {
             alertaRepository.actualizar(idAlerta, idFichaReca);
         }
     }
