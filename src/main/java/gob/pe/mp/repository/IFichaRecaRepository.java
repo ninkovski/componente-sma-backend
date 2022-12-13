@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IFichaRecaRepository {
 
-    void insertar(String genDistJudicial, String genUdavitUavit, Integer genNumFicha,
+    Integer insertar(String genDistJudicial, String genUdavitUavit, Integer genNumFicha,
                   Date genFecFicha, Integer genBeneficiaria, Date genBeneficiariaFecha,
                   Integer genNumCarpetaAsist, String genNombreAbogago, String genTSocial,
                   String genPsicologo, Integer genMedioDeComuni, String genNombreMedio,

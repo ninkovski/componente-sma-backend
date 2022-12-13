@@ -3,6 +3,7 @@ package gob.pe.mp.service;
 import gob.pe.mp.api.FichasRecaApiDelegate;
 import gob.pe.mp.entity.FichaRecaEntity;
 import gob.pe.mp.model.*;
+import gob.pe.mp.repository.impl.AlertaRepository;
 import gob.pe.mp.repository.impl.FichaRecaRepository;
 import gob.pe.mp.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class FichaRecaService implements FichasRecaApiDelegate {
 
     @Autowired
     private FichaRecaRepository fichaRecaRepository;
+
+    @Autowired
+    private AlertaRepository alertaRepository;
 
     @Override
     public ResponseEntity<RegistrarFichaRecaResponse> registrarFichaReca(RegistrarFichaRecaRequest request) {
@@ -43,7 +47,7 @@ public class FichaRecaService implements FichasRecaApiDelegate {
             victFecNacimiento = DateUtil.getDateFromString(request.getVictFecNacimiento(), DateUtil.DATETIME_FORMAT);
         }
 
-        fichaRecaRepository.insertar(
+        Integer idFichaReca = fichaRecaRepository.insertar(
                 request.getGenDistJudicial(), request.getGenUdavitUavit(), request.getGenNumFicha(), genFecFicha,
                 request.getGenBeneficiaria(), genBeneficiariaFecha, request.getGenNumCarpetaAsist(), request.getGenNombreAbogago(),
                 request.getGenTSocial(), request.getGenPsicologo(), request.getGenMedioDeComuni(), request.getGenNombreMedio(),
@@ -65,6 +69,8 @@ public class FichaRecaService implements FichasRecaApiDelegate {
                 request.getUdavitDenucia(), request.getUdavitMimp(), request.getUdavitMinedu(), request.getUdavitMinsa(), request.getUdavitMire(), request.getUdavitMinjus(), request.getUdavitReinserLaboral(), request.getUdavitOtros(),
                 request.getContEstrategia(), request.getContEstrategiaOp(), request.getContEstrategiaOpDetalle()
         );
+
+        actualizarAlertaConIdFichaReca(request.getIdAlerta(), idFichaReca);
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
@@ -94,6 +100,12 @@ public class FichaRecaService implements FichasRecaApiDelegate {
         response.setData(listaReponse);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    private void actualizarAlertaConIdFichaReca(Integer idAlerta, Integer idFichaReca) {
+        if (idFichaReca != null) {
+            alertaRepository.actualizar(idAlerta, idFichaReca);
+        }
     }
 
     private ListarFichaRecaDataResponse obtenerDataResponse(FichaRecaEntity entity) {

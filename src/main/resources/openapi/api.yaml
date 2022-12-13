@@ -1330,6 +1330,9 @@ components:
         contEstrategiaOpDetalle:
           type: string
           example: '1'
+        idAlerta:
+          type: integer
+          example: 123
     EnviarEmailMRequest:
       type: object
       properties:

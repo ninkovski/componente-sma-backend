@@ -57,6 +57,10 @@ public interface AlertaMapper {
     @Options(statementType = StatementType.CALLABLE)
     Integer contarByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
+    @Insert(value = "UPDATE \"TB_ALERTA\"" +
+            "set \"ID_TB_FICHA_RECA\"=#{idFichaReca} where \"ID_ALERTA\"=#{idAlerta}")
+    void actualizar(@Param("idAlerta") Integer idAlerta, @Param("idFichaReca") Integer idFichaReca);
+
     @Insert(value = "INSERT INTO \"TB_ACCION_ALERTA\" (\"DESCRIPCION\") VALUES (#{descripcion})")
     void insertarAccionAlerta(@Param("descripcion") String descripcion);
 

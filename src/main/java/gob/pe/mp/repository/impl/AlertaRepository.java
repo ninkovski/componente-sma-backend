@@ -46,6 +46,11 @@ public class AlertaRepository implements IAlertaRepository {
     }
 
     @Override
+    public void actualizar(Integer idAlerta, Integer idFichaReca) {
+        alertaMapper.actualizar(idAlerta, idFichaReca);
+    }
+
+    @Override
     public void insertarAccionAlerta(String descripcion) {
         alertaMapper.insertarAccionAlerta(descripcion);
     }

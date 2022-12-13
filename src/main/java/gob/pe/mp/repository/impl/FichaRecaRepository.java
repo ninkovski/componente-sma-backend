@@ -16,7 +16,7 @@ public class FichaRecaRepository implements IFichaRecaRepository {
     private FichaRecaMapper fichaRecaMapper;
 
     @Override
-    public void insertar(String genDistJudicial, String genUdavitUavit, Integer genNumFicha,
+    public Integer insertar(String genDistJudicial, String genUdavitUavit, Integer genNumFicha,
                          Date genFecFicha, Integer genBeneficiaria, Date genBeneficiariaFecha,
                          Integer genNumCarpetaAsist, String genNombreAbogago, String genTSocial,
                          String genPsicologo, Integer genMedioDeComuni, String genNombreMedio,
@@ -53,7 +53,7 @@ public class FichaRecaRepository implements IFichaRecaRepository {
                          String udavitMinedu, String udavitMinsa, String udavitMire,
                          String udavitMinjus, String udavitReinserLaboral, String udavitOtros,
                          Integer contEstrategia, Integer contEstrategiaOp, String contEstrategiaOpDetalle) {
-        fichaRecaMapper.insertar(genDistJudicial, genUdavitUavit, genNumFicha,
+        return fichaRecaMapper.insertar(genDistJudicial, genUdavitUavit, genNumFicha,
                 genFecFicha, genBeneficiaria, genBeneficiariaFecha,
                 genNumCarpetaAsist, genNombreAbogago, genTSocial,
                 genPsicologo, genMedioDeComuni, genNombreMedio,

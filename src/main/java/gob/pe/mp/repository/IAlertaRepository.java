@@ -17,6 +17,8 @@ public interface IAlertaRepository {
     List<AlertaEntity> listarByFechas(Date fechaInicio, Date fechaFin);
     Integer contarByFechas(Date fechaInicio, Date fechaFin);
 
+    void actualizar(Integer idAlerta, Integer idFichaReca);
+
     void insertarAccionAlerta(String descripcion);
     List<AccionAlertaEntity> listarAccionAlerta();
 
