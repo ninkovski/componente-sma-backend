@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.StatementType;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -22,8 +23,8 @@ public interface ParametroMapper {
     @Options(statementType = StatementType.CALLABLE)
     List<ParametroEntity> listar();
 
-    @Insert(value = "INSERT INTO \"TB_PARAMETRO\" (\"DESCRIPCION\",\"VALOR\",\"USUARIO_AUDT_NUEVO\") " +
-            "VALUES (#{descripcion},#{valor},#{usuarioRegistro})")
-    void insertar(@Param("descripcion") String descripcion, @Param("valor") Integer valor,
-                  @Param("usuarioRegistro") String usuarioRegistro);
+    @Insert(value = "UPDATE \"TB_PARAMETRO\" SET \"VALOR\"=#{valor},\"USUARIO_AUDT_MODF\"=#{usuarioModificacion},\"FEC_REGISTRO_AUDT_MODF\"=#{fechaMoficacion} " +
+            "where \"ID_PARAMETRO\"=#{id}")
+    void insertar(@Param("id") Integer id, @Param("valor") Integer valor, @Param("usuarioModificacion") String usuarioModificacion,
+                  @Param("fechaMoficacion") Date fechaMoficacion);
 }

@@ -4,11 +4,13 @@ import gob.pe.mp.api.ParametrosApiDelegate;
 import gob.pe.mp.entity.ParametroEntity;
 import gob.pe.mp.model.*;
 import gob.pe.mp.repository.impl.ParametroRepository;
+import gob.pe.mp.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,14 +47,16 @@ public class ParametroService implements ParametrosApiDelegate {
     }
 
     @Override
-    public ResponseEntity<RegistrarParametroResponse> registrarParametro(RegistrarParametroRequest request) {
-        parametroRepository.insertar(request.getDescripcion(), request.getValor(), request.getUsuarioRegistro());
+    public ResponseEntity<ActualizarParametroResponse> actualizarParametro(ActualizarParametroRequest request) {
+        Date fecha = DateUtil.getDateFromString(request.getFechaMoficacion(), DateUtil.DATETIME_FORMAT);
+
+        parametroRepository.actualizar(request.getId(), request.getValor(), request.getUsuarioMoficacion(), fecha);
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
         metadata.setMessage("El proceso fue exitoso.");
 
-        RegistrarParametroResponse response = new RegistrarParametroResponse();
+        ActualizarParametroResponse response = new ActualizarParametroResponse();
         response.setMetadata(metadata);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

@@ -6,6 +6,7 @@ import gob.pe.mp.repository.mapper.ParametroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -25,7 +26,7 @@ public class ParametroRepository implements IParametroRepository {
     }
 
     @Override
-    public void insertar(String descripcion, Integer valor, String usuarioRegistro) {
-        parametroMapper.insertar(descripcion, valor, usuarioRegistro);
+    public void actualizar(Integer id, Integer valor, String usuarioModificacion, Date fechaModificacion) {
+        parametroMapper.insertar(id, valor, usuarioModificacion, fechaModificacion);
     }
 }

@@ -887,27 +887,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
-    post:
+    put:
       tags:
       - Parametro
-      summary: Registrar parámetro.
+      summary: Actualizar parámetro.
       description: |
         Este método permite registrar el parámetro.
-      operationId: registrarParametro
+      operationId: actualizarParametro
       requestBody:
         required: true
-        description: Request requerido para registrar el parámetro.
+        description: Request requerido para actualizar el parámetro.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegistrarParametroRequest'
+              $ref: '#/components/schemas/ActualizarParametroRequest'
       responses:
         '200':
           description: Operación exitosa
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RegistrarParametroResponse'
+                $ref: '#/components/schemas/ActualizarParametroResponse'
         '400':
           description: Datos no válidos
           content:
@@ -1521,20 +1521,23 @@ components:
       - nombreAgraviante
       - numeroDocAgraviante
       - nombreFiscalia
-    RegistrarParametroRequest:
+    ActualizarParametroRequest:
       type: object
       properties:
-        descripcion:
-          type: string
-          minLength: 1
-          example: 'MESES DE GENERACIÓN DE EXPEDIENTE'
+        id:
+          type: integer
+          example: 12
         valor:
           type: integer
           example: 12
-        usuarioRegistro:
+        usuarioMoficacion:
           type: string
           minLength: 1
           example: 'usuario'
+        fechaMoficacion:
+          type: string
+          minLength: 1
+          example: '23/11/2022'
       required:
       - descripcion
       - valor
@@ -2163,7 +2166,7 @@ components:
         valor:
           type: integer
           example: 12
-    RegistrarParametroResponse:
+    ActualizarParametroResponse:
       type: object
       properties:
         metadata:
