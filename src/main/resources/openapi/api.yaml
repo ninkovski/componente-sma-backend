@@ -846,6 +846,86 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
+  /parametros:
+    get:
+      tags:
+      - Parametro
+      summary: Listar parámetro.
+      description: |
+        Este método permite listar los parámetros.
+      operationId: listarParametro
+      parameters:
+      - name: codigo
+        in: query
+        description: Código del parámetro que se ingresa como filtro
+        required: false
+        schema:
+          type: integer
+          example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarParametroResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+    post:
+      tags:
+      - Parametro
+      summary: Registrar parámetro.
+      description: |
+        Este método permite registrar el parámetro.
+      operationId: registrarParametro
+      requestBody:
+        required: true
+        description: Request requerido para registrar el parámetro.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarParametroRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistrarParametroResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
 components:
   schemas:
     LoginRequest:
@@ -1441,6 +1521,23 @@ components:
       - nombreAgraviante
       - numeroDocAgraviante
       - nombreFiscalia
+    RegistrarParametroRequest:
+      type: object
+      properties:
+        descripcion:
+          type: string
+          minLength: 1
+          example: 'MESES DE GENERACIÓN DE EXPEDIENTE'
+        valor:
+          type: integer
+          example: 12
+        usuarioRegistro:
+          type: string
+          minLength: 1
+          example: 'usuario'
+      required:
+      - descripcion
+      - valor
     LoginResponse:
       type: object
       properties:
@@ -2041,6 +2138,32 @@ components:
         metadata:
           $ref: '#/components/schemas/Metadata'
     EnviarWhatsappResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarParametroResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarParametroDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarParametroDataResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'MESES DE GENERACIÓN DE EXPEDIENTE'
+        valor:
+          type: integer
+          example: 12
+    RegistrarParametroResponse:
       type: object
       properties:
         metadata:
