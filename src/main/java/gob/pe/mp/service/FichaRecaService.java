@@ -83,8 +83,14 @@ public class FichaRecaService implements FichasRecaApiDelegate {
     }
 
     @Override
-    public ResponseEntity<ListarFichaRecaResponse> listarFichareca() {
-        List<FichaRecaEntity> lista = fichaRecaRepository.listar();
+    public ResponseEntity<ListarFichaRecaResponse> listarFichaReca(Integer codigo) {
+        List<FichaRecaEntity> lista;
+
+        if (codigo != null && codigo != 0) {
+            lista = fichaRecaRepository.listar(codigo);
+        } else {
+            lista = fichaRecaRepository.listar();
+        }
 
         List<ListarFichaRecaDataResponse> listaReponse = lista
                 .stream()
@@ -98,6 +104,62 @@ public class FichaRecaService implements FichasRecaApiDelegate {
         ListarFichaRecaResponse response = new ListarFichaRecaResponse();
         response.setMetadata(metadata);
         response.setData(listaReponse);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<ActualizarFichaRecaResponse> actualizarFichaReca(ActualizarFichaRecaRequest request) {
+        Date genFecFicha = null;
+        Date genBeneficiariaFecha = null;
+        Date genFecPublic = null;
+        Date victFecNacimiento = null;
+
+        if (request.getGenFecFicha() != null && !request.getGenFecFicha().isEmpty()) {
+            genFecFicha = DateUtil.getDateFromString(request.getGenFecFicha(), DateUtil.DATETIME_FORMAT);
+        }
+
+        if (request.getGenBeneficiariaFecha() != null && !request.getGenBeneficiariaFecha().isEmpty()) {
+            genBeneficiariaFecha = DateUtil.getDateFromString(request.getGenBeneficiariaFecha(), DateUtil.DATETIME_FORMAT);
+        }
+
+        if (request.getGenFecPublic() != null && !request.getGenFecPublic().isEmpty()) {
+            genFecPublic = DateUtil.getDateFromString(request.getGenFecPublic(), DateUtil.DATETIME_FORMAT);
+        }
+
+        if (request.getVictFecNacimiento() != null && !request.getVictFecNacimiento().isEmpty()) {
+            victFecNacimiento = DateUtil.getDateFromString(request.getVictFecNacimiento(), DateUtil.DATETIME_FORMAT);
+        }
+
+        fichaRecaRepository.actualizar(
+                request.getIdTbFichaReca(), request.getGenDistJudicial(), request.getGenUdavitUavit(), request.getGenNumFicha(), genFecFicha,
+                request.getGenBeneficiaria(), genBeneficiariaFecha, request.getGenNumCarpetaAsist(), request.getGenNombreAbogago(),
+                request.getGenTSocial(), request.getGenPsicologo(), request.getGenMedioDeComuni(), request.getGenNombreMedio(),
+                genFecPublic, request.getVictNomApell(), request.getVictIdTbNacionalidad(), request.getVictTipDocu(), request.getVictNDni(),
+                request.getVictDepartamento(), request.getVictProvincia(), request.getVictDistirto(), victFecNacimiento, request.getVictTelfFijo(),
+                request.getVictCelular(), request.getVictEmail(), request.getVictDominicilio(), request.getVictIdioma(), request.getVictEtnia(), request.getVictHjos(),
+                request.getVictGestando(), request.getVictGestandoMeses(), request.getVictEstadoCivil(), request.getVictEstadoCivilOtro(), request.getVictNEducativo(),
+                request.getVictTrabaja(), request.getVictOcupacion(), request.getVictOcupacionOtros(), request.getVictCentroTrab(), request.getVictRemuneracion(),
+                request.getVictDiscapacidad(), request.getVictDiscapacidadDes(), request.getVictAccSalud(), request.getVictAccSaludDetalle(), request.getVictRelaAgresora(),
+                request.getVictRelaAgresoraDetalle(), request.getVictDepNomApell(), request.getVictDepNacionalidad(), request.getVictDepTipDocumento(), request.getVictDepNDni(),
+                request.getVictDepEdad(), request.getVictDepDomicilio(), request.getVictDepNivelEd(), request.getVictDepEstu(), request.getVictDepEstuTip(), request.getVictDepNomEdu(),
+                request.getVictDepEstuAno(), request.getVictDepTrabaja(), request.getVictDepOcupacion(), request.getVictDepRemunerado(), request.getVictDepCentTrabajo(), request.getVictDepDiscapacidad(),
+                request.getVictDepDiscapacidadDes(), request.getVictDepRelaDirect(), request.getVictDepRelaDirectDetalle(), request.getVictDep2NomApell(), request.getVictDep2Nacionalidad(), request.getVictDep2TipDocumento(),
+                request.getVictDep2NDni(), request.getVictDep2Edad(), request.getVictDep2Domicilio(), request.getVictDep2NivelEdu(), request.getVictDep2Estu(), request.getVictDep2EstuTip(), request.getVictDep2NomEdu(),
+                request.getVictDep2EstuAno(), request.getVictDep2Trabaja(), request.getVictDep2Ocupacion(), request.getVictDep2Remunerado(), request.getVictDep2CentTrabajo(), request.getVictDep2Discapacidad(),
+                request.getVictDep2DiscapacidadDes(), request.getVictDep2RelaDirec(), request.getVictDep2RelaDirecDetalle(), request.getAsistLegal(), request.getAsistSocial(), request.getAsistPsicologica(), request.getAsistInforEmit(),
+                request.getAsistAsistLegaDet(), request.getAsistPsicologicaDet(), request.getAsistSocialDet(), request.getAprePregunt1(), request.getAprePregunt2(), request.getAprePregunt3(), request.getAprePregunt4(),
+                request.getAprePregunt5(), request.getAprePregunt6(), request.getAprePregunt7(), request.getUdavitSolFiscal(), request.getUdavitSolFiscalDet(), request.getUdavitInvestigacion(), request.getUdavitAcciones(),
+                request.getUdavitDenucia(), request.getUdavitMimp(), request.getUdavitMinedu(), request.getUdavitMinsa(), request.getUdavitMire(), request.getUdavitMinjus(), request.getUdavitReinserLaboral(), request.getUdavitOtros(),
+                request.getContEstrategia(), request.getContEstrategiaOp(), request.getContEstrategiaOpDetalle()
+        );
+
+        Metadata metadata = new Metadata();
+        metadata.setStatus(HttpStatus.OK.value());
+        metadata.setMessage("El proceso fue exitoso.");
+
+        ActualizarFichaRecaResponse response = new ActualizarFichaRecaResponse();
+        response.setMetadata(metadata);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

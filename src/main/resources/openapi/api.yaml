@@ -700,7 +700,15 @@ paths:
       summary: Listar ficha reca.
       description: |
         Este método permite listar la ficha reca.
-      operationId: listarFichareca
+      operationId: listarFichaReca
+      parameters:
+      - name: codigo
+        in: query
+        description: Código del parámetro que se ingresa como filtro
+        required: false
+        schema:
+          type: integer
+          example: 1
       responses:
         '200':
           description: Operación exitosa
@@ -708,6 +716,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListarFichaRecaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+    put:
+      tags:
+      - Ficha Reca
+      summary: Actualizar ficha reca.
+      description: |
+        Este método permite actualizar la ficha reca.
+      operationId: actualizarFichaReca
+      requestBody:
+        required: true
+        description: Request requerido para actualizar la ficha reca.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualizarFichaRecaRequest'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActualizarFichaRecaResponse'
         '400':
           description: Datos no válidos
           content:
@@ -926,6 +973,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
+  /denuncias:
+    get:
+      tags:
+      - Denuncia
+      summary: Listar denuncia.
+      description: |
+        Este método permite listar la denuncia.
+      operationId: listarDenuncia
+      parameters:
+      - name: idAlerta
+        in: query
+        description: Id de la alerta que se ingresa como filtro
+        required: true
+        schema:
+          type: integer
+          example: 123
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarDenunciaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Eror inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
 components:
   schemas:
     LoginRequest:
@@ -1077,6 +1165,348 @@ components:
     RegistrarFichaRecaRequest:
       type: object
       properties:
+        genDistJudicial:
+          type: string
+          example: '123'
+        genUdavitUavit:
+          type: string
+          example: '123'
+        genNumFicha:
+          type: integer
+          example: 1
+        genFecFicha:
+          type: string
+          example: '23/11/2022'
+        genBeneficiaria:
+          type: integer
+          example: 1
+        genBeneficiariaFecha:
+          type: string
+          example: '23/11/2022'
+        genNumCarpetaAsist:
+          type: integer
+          example: 1
+        genNombreAbogago:
+          type: string
+          example: 'Carlos'
+        genTSocial:
+          type: string
+          example: 'MA'
+        genPsicologo:
+          type: string
+          example: 'MA'
+        genMedioDeComuni:
+          type: integer
+          example: 1
+        genNombreMedio:
+          type: string
+          example: 'MA'
+        genFecPublic:
+          type: string
+          example: '23/11/2022'
+        victNomApell:
+          type: string
+          example: 'MA'
+        victIdTbNacionalidad:
+          type: integer
+          example: 1
+        victTipDocu:
+          type: integer
+          example: 1
+        victNDni:
+          type: integer
+          example: 1
+        victDepartamento:
+          type: string
+          example: '01'
+        victProvincia:
+          type: string
+          example: '0101'
+        victDistirto:
+          type: string
+          example: '010101'
+        victFecNacimiento:
+          type: string
+          example: '23/11/2022'
+        victTelfFijo:
+          type: string
+          example: 'MA'
+        victCelular:
+          type: integer
+          example: 1
+        victEmail:
+          type: string
+          example: 'MA'
+        victDominicilio:
+          type: string
+          example: 'MA'
+        victIdioma:
+          type: integer
+          example: 1
+        victEtnia:
+          type: integer
+          example: 1
+        victHjos:
+          type: integer
+          example: 1
+        victGestando:
+          type: integer
+          example: 1
+        victGestandoMeses:
+          type: integer
+          example: 1
+        victEstadoCivil:
+          type: integer
+          example: 1
+        victEstadoCivilOtro:
+          type: string
+          example: 'MA'
+        victNEducativo:
+          type: integer
+          example: 1
+        victTrabaja:
+          type: integer
+          example: 1
+        victOcupacion:
+          type: integer
+          example: 1
+        victOcupacionOtros:
+          type: string
+          example: 'MA'
+        victCentroTrab:
+          type: string
+          example: 'MA'
+        victRemuneracion:
+          type: integer
+          example: 1
+        victDiscapacidad:
+          type: integer
+          example: 1
+        victDiscapacidadDes:
+          type: integer
+          example: 1
+        victAccSalud:
+          type: integer
+          example: 1
+        victAccSaludDetalle:
+          type: string
+          example: '1'
+        victRelaAgresora:
+          type: integer
+          example: 1
+        victRelaAgresoraDetalle:
+          type: string
+          example: 'MA'
+        victDepNomApell:
+          type: string
+          example: 'MA'
+        victDepNacionalidad:
+          type: integer
+          example: 1
+        victDepTipDocumento:
+          type: integer
+          example: 1
+        victDepNDni:
+          type: integer
+          example: 1
+        victDepEdad:
+          type: integer
+          example: 1
+        victDepDomicilio:
+          type: string
+          example: '1'
+        victDepNivelEd:
+          type: integer
+          example: 1
+        victDepEstu:
+          type: integer
+          example: 1
+        victDepEstuTip:
+          type: integer
+          example: 1
+        victDepNomEdu:
+          type: string
+          example: '1'
+        victDepEstuAno:
+          type: string
+          example: '1'
+        victDepTrabaja:
+          type: integer
+          example: 1
+        victDepOcupacion:
+          type: integer
+          example: 1
+        victDepRemunerado:
+          type: integer
+          example: 1
+        victDepCentTrabajo:
+          type: string
+          example: '1'
+        victDepDiscapacidad:
+          type: integer
+          example: 1
+        victDepDiscapacidadDes:
+          type: integer
+          example: 1
+        victDepRelaDirect:
+          type: integer
+          example: 1
+        victDepRelaDirectDetalle:
+          type: string
+          example: '1'
+        victDep2NomApell:
+          type: string
+          example: '1'
+        victDep2Nacionalidad:
+          type: integer
+          example: 1
+        victDep2TipDocumento:
+          type: integer
+          example: 1
+        victDep2NDni:
+          type: integer
+          example: 1
+        victDep2Edad:
+          type: integer
+          example: 1
+        victDep2Domicilio:
+          type: string
+          example: '1'
+        victDep2NivelEdu:
+          type: integer
+          example: 1
+        victDep2Estu:
+          type: integer
+          example: 1
+        victDep2EstuTip:
+          type: integer
+          example: 1
+        victDep2NomEdu:
+          type: string
+          example: '1'
+        victDep2EstuAno:
+          type: string
+          example: '1'
+        victDep2Trabaja:
+          type: integer
+          example: 1
+        victDep2Ocupacion:
+          type: integer
+          example: 1
+        victDep2Remunerado:
+          type: integer
+          example: 1
+        victDep2CentTrabajo:
+          type: string
+          example: '1'
+        victDep2Discapacidad:
+          type: integer
+          example: 1
+        victDep2DiscapacidadDes:
+          type: integer
+          example: 1
+        victDep2RelaDirec:
+          type: integer
+          example: 1
+        victDep2RelaDirecDetalle:
+          type: string
+          example: '1'
+        asistLegal:
+          type: integer
+          example: 1
+        asistSocial:
+          type: integer
+          example: 1
+        asistPsicologica:
+          type: integer
+          example: 1
+        asistInforEmit:
+          type: string
+          example: '1'
+        asistAsistLegaDet:
+          type: string
+          example: '1'
+        asistPsicologicaDet:
+          type: string
+          example: '1'
+        asistSocialDet:
+          type: string
+          example: '1'
+        aprePregunt1:
+          type: integer
+          example: 1
+        aprePregunt2:
+          type: integer
+          example: 1
+        aprePregunt3:
+          type: integer
+          example: 1
+        aprePregunt4:
+          type: integer
+          example: 1
+        aprePregunt5:
+          type: integer
+          example: 1
+        aprePregunt6:
+          type: integer
+          example: 1
+        aprePregunt7:
+          type: string
+          example: '1'
+        udavitSolFiscal:
+          type: integer
+          example: 1
+        udavitSolFiscalDet:
+          type: string
+          example: '1'
+        udavitInvestigacion:
+          type: string
+          example: '1'
+        udavitAcciones:
+          type: string
+          example: '1'
+        udavitDenucia:
+          type: string
+          example: '1'
+        udavitMimp:
+          type: string
+          example: '1'
+        udavitMinedu:
+          type: string
+          example: '1'
+        udavitMinsa:
+          type: string
+          example: '1'
+        udavitMire:
+          type: string
+          example: '1'
+        udavitMinjus:
+          type: string
+          example: '1'
+        udavitReinserLaboral:
+          type: string
+          example: '1'
+        udavitOtros:
+          type: string
+          example: '1'
+        contEstrategia:
+          type: integer
+          example: 1
+        contEstrategiaOp:
+          type: integer
+          example: 1
+        contEstrategiaOpDetalle:
+          type: string
+          example: '1'
+        idAlerta:
+          type: integer
+          example: 123
+    ActualizarFichaRecaRequest:
+      type: object
+      properties:
+        idTbFichaReca:
+          type: integer
+          example: 1
         genDistJudicial:
           type: string
           example: '123'
@@ -1779,6 +2209,11 @@ components:
       properties:
         metadata:
           $ref: '#/components/schemas/Metadata'
+    ActualizarFichaRecaResponse:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     ListarFichaRecaResponse:
       type: object
       properties:
@@ -2171,6 +2606,94 @@ components:
       properties:
         metadata:
           $ref: '#/components/schemas/Metadata'
+    ListarDenunciaResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarDenunciaDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ListarDenunciaDataResponse:
+      type: object
+      properties:
+        idDenuncia:
+          type: integer
+          example: 123
+        ano:
+          type: string
+          example: '2021'
+        mes:
+          type: string
+          example: '6'
+        deDistJudi:
+          type: string
+          example: 'TUMBES'
+        deDepeMPub:
+          type: string
+          example: '02 FISCALIA PROVINCIAL PENAL CORPORATIVA DE ZARUMILLA'
+        deDist:
+          type: string
+          example: 'juridiccion'
+        deDepePoli:
+          type: string
+          example: 'dependencia'
+        idUnico:
+          type: string
+          example: '0350603450220100003950000'
+        caso:
+          type: string
+          example: '3506034502-2010-395-0'
+        feIngCase:
+          type: string
+          example: '23/11/2022 03:10:20'
+        deProced:
+          type: string
+          example: 'INFORME POLICIAL'
+        nombres:
+          type: string
+          example: 'WILDER ALEJANDRO MEDINA LOAYZA'
+        razon:
+          type: string
+          minLength: 1
+          example: 'Carlos'
+        deEdad:
+          type: string
+          example: '23'
+        tiSexo:
+          type: string
+          example: 'M'
+        condicion:
+          type: string
+          example: 'NO HABIDO'
+        deTipoParte:
+          type: string
+          example: 'AGRAVIADO'
+        genDeMatDeli:
+          type: string
+          example: 'CONTRA LA VIDA/EL CUERPO Y LA SALUD'
+        subDeMatDeli:
+          type: string
+          example: 'LESIONES'
+        espDeMatDeli:
+          type: string
+          example: 'LESGRAV(DAÑOS FISICO O PSIQUICO)'
+        nuArti:
+          type: string
+          example: '121'
+        stComponente:
+          type: string
+          example: 'LESIONES'
+        deOcupProf:
+          type: string
+          example: 'SU CASA'
+        deGradInst:
+          type: string
+          example: 'SECUNDARIA'
+        registroFlag:
+          type: string
+          example: 'LESIONES'
     Metadata:
       type: object
       properties:
