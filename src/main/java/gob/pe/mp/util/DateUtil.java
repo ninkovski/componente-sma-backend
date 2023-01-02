@@ -36,28 +36,28 @@ public final class DateUtil {
 
     public static String getActualString(final String formato) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formato);
-        return simpleDateFormat.format(new Date());
+        return simpleDateFormat.format(getDateTimeZone(formato));
     }
 
-    public static Date getActualDate(final String formato) throws Exception {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formato);
-        return simpleDateFormat.parse(simpleDateFormat.format(new Date()));
+    public static Date getActualDate(final String formato) {
+        return getDateTimeZone(formato);
     }
 
-    public static Date getDateTimeZone(final String formato) throws Exception {
-        Instant instant = Instant.now();
-        ZoneId zoneId = ZoneId.of("America/Lima");
-        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, zoneId);
+    public static Date getDateTimeZone(final String formato) {
+        try {
+            Instant instant = Instant.now();
+            ZoneId zoneId = ZoneId.of("America/Lima");
+            ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, zoneId);
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(formato);
-        DateFormat dateFormat = new SimpleDateFormat(formato);
-        String fechaString = zonedDateTime.format(dateTimeFormatter);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(formato);
+            DateFormat dateFormat = new SimpleDateFormat(formato);
+            String fechaString = zonedDateTime.format(dateTimeFormatter);
 
-        return dateFormat.parse(fechaString);
-    }
-
-    public static String getWithEndHours(final String date) {
-        return date + " 23:59:59";
+            return dateFormat.parse(fechaString);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return new Date();
+        }
     }
 
 }

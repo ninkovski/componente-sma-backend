@@ -1,9 +1,11 @@
 package gob.pe.mp.service;
 
 import gob.pe.mp.api.FichasRecaApiDelegate;
+import gob.pe.mp.entity.FactorRiesgoEntity;
 import gob.pe.mp.entity.FichaRecaEntity;
 import gob.pe.mp.model.*;
 import gob.pe.mp.repository.impl.AlertaRepository;
+import gob.pe.mp.repository.impl.FactorRiesgoRepository;
 import gob.pe.mp.repository.impl.FichaRecaRepository;
 import gob.pe.mp.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +26,9 @@ public class FichaRecaService implements FichasRecaApiDelegate {
 
     @Autowired
     private AlertaRepository alertaRepository;
+
+    @Autowired
+    private FactorRiesgoRepository factorRiesgoRepository;
 
     @Override
     public ResponseEntity<RegistrarFichaRecaResponse> registrarFichaReca(RegistrarFichaRecaRequest request) {
@@ -70,6 +76,7 @@ public class FichaRecaService implements FichasRecaApiDelegate {
                 request.getContEstrategia(), request.getContEstrategiaOp(), request.getContEstrategiaOpDetalle()
         );
 
+        registrarFactorRiesgo(idFichaReca, request);
         actualizarAlertaConIdFichaReca(request.getIdAlerta(), idFichaReca);
 
         Metadata metadata = new Metadata();
@@ -154,6 +161,8 @@ public class FichaRecaService implements FichasRecaApiDelegate {
                 request.getContEstrategia(), request.getContEstrategiaOp(), request.getContEstrategiaOpDetalle()
         );
 
+        actualizarFactorRiesgo(request);
+
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
         metadata.setMessage("El proceso fue exitoso.");
@@ -167,6 +176,59 @@ public class FichaRecaService implements FichasRecaApiDelegate {
     private void actualizarAlertaConIdFichaReca(Integer idAlerta, Integer idFichaReca) {
         if (idAlerta != null && idFichaReca != null) {
             alertaRepository.actualizar(idAlerta, idFichaReca);
+        }
+    }
+
+    private List<FactorRiesgoDataRequest> listarFactorRiesgo(FichaRecaEntity entity) {
+        List<FactorRiesgoEntity> listaFactorRiesgoEntity = factorRiesgoRepository.listar(entity.getId_tb_ficha_reca());
+
+        if (listaFactorRiesgoEntity != null && !listaFactorRiesgoEntity.isEmpty()) {
+            return listaFactorRiesgoEntity.stream().map(factorRiesgoEntity -> {
+                FactorRiesgoDataRequest factorRiesgoDataRequest = new FactorRiesgoDataRequest();
+                factorRiesgoDataRequest.setCodigo(factorRiesgoEntity.getId_fact_riesgo_detalle());
+                factorRiesgoDataRequest.setDetalle(factorRiesgoEntity.getDetalle());
+                return factorRiesgoDataRequest;
+            }).collect(Collectors.toList());
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private void registrarFactorRiesgo(Integer idFichaReca, RegistrarFichaRecaRequest request) {
+        if (idFichaReca != null && request.getFactoresRiesgo() != null && !request.getFactoresRiesgo().isEmpty()) {
+            Date fechaRegistro = (request.getFechaRegistro() != null && !request.getFechaRegistro().isEmpty()) ?
+                    DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATETIME_FORMAT) :
+                    DateUtil.getActualDate(DateUtil.DATETIME_FORMAT);
+
+            request.getFactoresRiesgo().forEach(item -> {
+                factorRiesgoRepository.insertar(
+                        item.getCodigo(),
+                        idFichaReca,
+                        item.getDetalle(),
+                        fechaRegistro,
+                        request.getUsuarioRegistro()
+                );
+            });
+        }
+    }
+
+    private void actualizarFactorRiesgo(ActualizarFichaRecaRequest request) {
+        if (request.getFactoresRiesgo() != null && !request.getFactoresRiesgo().isEmpty()) {
+            Date fechaRegistro = (request.getFechaModificacion() != null && !request.getFechaModificacion().isEmpty()) ?
+                    DateUtil.getDateFromString(request.getFechaModificacion(), DateUtil.DATETIME_FORMAT) :
+                    DateUtil.getActualDate(DateUtil.DATETIME_FORMAT);
+
+            factorRiesgoRepository.eliminarPorFichaReca(request.getIdTbFichaReca());
+
+            request.getFactoresRiesgo().forEach(item -> {
+                factorRiesgoRepository.insertar(
+                        item.getCodigo(),
+                        request.getIdTbFichaReca(),
+                        item.getDetalle(),
+                        fechaRegistro,
+                        request.getUsuarioModificacion()
+                );
+            });
         }
     }
 
@@ -301,6 +363,7 @@ public class FichaRecaService implements FichasRecaApiDelegate {
         response.setContEstrategia(entity.getCont_estrategia());
         response.setContEstrategiaOp(entity.getCont_estrategia_op());
         response.setContEstrategiaOpDetalle(entity.getCont_estrategia_op_detalle());
+        response.setFactoresRiesgo(listarFactorRiesgo(entity));
 
         return response;
     }

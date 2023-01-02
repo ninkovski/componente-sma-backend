@@ -1501,6 +1501,18 @@ components:
         idAlerta:
           type: integer
           example: 123
+        factoresRiesgo:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactorRiesgoDataRequest'
+        usuarioRegistro:
+          type: string
+          minLength: 1
+          example: 'usuario'
+        fechaRegistro:
+          type: string
+          minLength: 1
+          example: '23/11/2022 10:11:20'
     ActualizarFichaRecaRequest:
       type: object
       properties:
@@ -1843,6 +1855,18 @@ components:
         idAlerta:
           type: integer
           example: 123
+        factoresRiesgo:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactorRiesgoDataRequest'
+        usuarioModificacion:
+          type: string
+          minLength: 1
+          example: 'usuario'
+        fechaModificacion:
+          type: string
+          minLength: 1
+          example: '23/11/2022 10:11:20'
     EnviarEmailMRequest:
       type: object
       properties:
@@ -2562,9 +2586,10 @@ components:
         contEstrategiaOpDetalle:
           type: string
           example: '1'
-      required:
-      - idFiscal
-      - idDelito
+        factoresRiesgo:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactorRiesgoDataRequest'
     EnviarEmailResponse:
       type: object
       properties:
@@ -2694,6 +2719,16 @@ components:
         registroFlag:
           type: string
           example: 'LESIONES'
+    FactorRiesgoDataRequest:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int32
+          example: 200
+        detalle:
+          type: string
+          example: Otros.
     Metadata:
       type: object
       properties:
