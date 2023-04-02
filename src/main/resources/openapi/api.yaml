@@ -7,12 +7,12 @@ externalDocs:
   description: Más información
   url: https://mp.gob.pe/
 servers:
-- url: http://mp.gob.pe/
+  - url: http://mp.gob.pe/
 paths:
   /login:
     post:
       tags:
-      - Login
+        - Login
       summary: Validar sesión.
       description: |
         Este método vaida la sesión del usuario.
@@ -58,7 +58,7 @@ paths:
   /alertas:
     post:
       tags:
-      - Alerta
+        - Alerta
       summary: Registrar alerta.
       description: |
         Este método permite registrar la alerta.
@@ -97,26 +97,26 @@ paths:
                 $ref: '#/components/schemas/ApiResponse500'
     get:
       tags:
-      - Alerta
+        - Alerta
       summary: Listar alerta.
       description: |
         Este método permite registrar la alerta.
       operationId: listarAlerta
       parameters:
-      - name: fechaInicio
-        in: query
-        description: Fecha de inicio que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '5/07/2022'
-      - name: fechaFin
-        in: query
-        description: Fecha de fin que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '6/07/2022'
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '5/07/2022'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '6/07/2022'
       responses:
         '200':
           description: Operación exitosa
@@ -145,26 +145,26 @@ paths:
   /alertas/cantidad:
     get:
       tags:
-      - Alerta
+        - Alerta
       summary: Contar alerta.
       description: |
         Este método permite contar las alertas.
       operationId: contarAlerta
       parameters:
-      - name: fechaInicio
-        in: query
-        description: Fecha de inicio que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '5/07/2022'
-      - name: fechaFin
-        in: query
-        description: Fecha de fin que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '6/07/2022'
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '5/07/2022'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '6/07/2022'
       responses:
         '200':
           description: Operación exitosa
@@ -193,7 +193,7 @@ paths:
   /alertas/accion:
     post:
       tags:
-      - Alerta
+        - Alerta
       summary: Registrar acción alerta.
       description: |
         Este método permite registrar la acción alerta.
@@ -232,7 +232,7 @@ paths:
                 $ref: '#/components/schemas/ApiResponse500'
     get:
       tags:
-      - Alerta
+        - Alerta
       summary: Listar ación alerta.
       description: |
         Este método permite registrar la acción alerta.
@@ -265,7 +265,7 @@ paths:
   /alertas/proteccion:
     post:
       tags:
-      - Alerta
+        - Alerta
       summary: Registrar medida protección.
       description: |
         Este método permite registrar la medida protección.
@@ -304,26 +304,26 @@ paths:
                 $ref: '#/components/schemas/ApiResponse500'
     get:
       tags:
-      - Alerta
+        - Alerta
       summary: Listar medida protección.
       description: |
         Este método permite listar la medida protección.
       operationId: listarProteccionAlerta
       parameters:
-      - name: fechaInicio
-        in: query
-        description: Fecha de inicio que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '5/07/2022'
-      - name: fechaFin
-        in: query
-        description: Fecha de fin que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '6/07/2022'
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '5/07/2022'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '6/07/2022'
       responses:
         '200':
           description: Operación exitosa
@@ -352,26 +352,26 @@ paths:
   /alertas/proteccion/cantidad:
     get:
       tags:
-      - Alerta
+        - Alerta
       summary: Contar medida protección.
       description: |
         Este método permite contar la medida protección.
       operationId: contarProteccionAlerta
       parameters:
-      - name: fechaInicio
-        in: query
-        description: Fecha de inicio que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '5/07/2022'
-      - name: fechaFin
-        in: query
-        description: Fecha de fin que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '6/07/2022'
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '5/07/2022'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '6/07/2022'
       responses:
         '200':
           description: Operación exitosa
@@ -400,7 +400,7 @@ paths:
   /alertas/alerta-accion:
     post:
       tags:
-      - Alerta
+        - Alerta
       summary: Registrar alerta-accion.
       description: |
         Este método permite registrar la alerta asociada a la acción.
@@ -440,7 +440,7 @@ paths:
   /alertas/alerta-proteccion:
     post:
       tags:
-      - Alerta
+        - Alerta
       summary: Registrar alerta-medida protección.
       description: |
         Este método permite registrar la alerta asociada a la medida protección.
@@ -480,7 +480,7 @@ paths:
   /alertas/denuncia:
     post:
       tags:
-      - Alerta
+        - Alerta
       summary: Registrar denuncia alerta
       description: |
         Este método permite registrar una denuncia alerta.
@@ -520,26 +520,26 @@ paths:
   /catalogos:
     get:
       tags:
-      - Catalogo
+        - Catalogo
       summary: Listar catálogo.
       description: |
         Este método permite listar el catálogo.
       operationId: listarCatalogo
       parameters:
-      - name: codigoPadre
-        in: query
-        description: Código padre del catálogo que se ingresa como filtro
-        required: true
-        schema:
-          type: integer
-          example: 1
-      - name: codigoHijo
-        in: query
-        description: Código hijo del catálogo que se ingresa como filtro
-        required: false
-        schema:
-          type: integer
-          example: 1
+        - name: codigoPadre
+          in: query
+          description: Código padre del catálogo que se ingresa como filtro
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - name: codigoHijo
+          in: query
+          description: Código hijo del catálogo que se ingresa como filtro
+          required: false
+          schema:
+            type: integer
+            example: 1
       responses:
         '200':
           description: Operación exitosa
@@ -568,19 +568,19 @@ paths:
   /paises:
     get:
       tags:
-      - Pais
+        - Pais
       summary: Listar pais.
       description: |
         Este método permite listar los paises.
       operationId: listarPais
       parameters:
-      - name: codigo
-        in: query
-        description: Código del pais que se ingresa como filtro
-        required: false
-        schema:
-          type: integer
-          example: 1
+        - name: codigo
+          in: query
+          description: Código del pais que se ingresa como filtro
+          required: false
+          schema:
+            type: integer
+            example: 1
       responses:
         '200':
           description: Operación exitosa
@@ -609,26 +609,26 @@ paths:
   /ubigeos:
     get:
       tags:
-      - Ubigeo
+        - Ubigeo
       summary: Listar ubigeo.
       description: |
         Este método permite listar ubigeo.
       operationId: listarUbigeo
       parameters:
-      - name: codigoDepartamento
-        in: query
-        description: Código del pais que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '1'
-      - name: codigoProvincia
-        in: query
-        description: Código de la provincia que se ingresa como filtro
-        required: false
-        schema:
-          type: string
-          example: '1'
+        - name: codigoDepartamento
+          in: query
+          description: Código del pais que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '1'
+        - name: codigoProvincia
+          in: query
+          description: Código de la provincia que se ingresa como filtro
+          required: false
+          schema:
+            type: string
+            example: '1'
       responses:
         '200':
           description: Operación exitosa
@@ -657,7 +657,7 @@ paths:
   /fichas-reca:
     post:
       tags:
-      - Ficha Reca
+        - Ficha Reca
       summary: Registrar ficha reca.
       description: |
         Este método permite registrar la ficha reca.
@@ -696,19 +696,19 @@ paths:
                 $ref: '#/components/schemas/ApiResponse500'
     get:
       tags:
-      - Ficha Reca
+        - Ficha Reca
       summary: Listar ficha reca.
       description: |
         Este método permite listar la ficha reca.
       operationId: listarFichaReca
       parameters:
-      - name: codigo
-        in: query
-        description: Código del parámetro que se ingresa como filtro
-        required: false
-        schema:
-          type: integer
-          example: 1
+        - name: codigo
+          in: query
+          description: Código del parámetro que se ingresa como filtro
+          required: false
+          schema:
+            type: integer
+            example: 1
       responses:
         '200':
           description: Operación exitosa
@@ -736,7 +736,7 @@ paths:
                 $ref: '#/components/schemas/ApiResponse500'
     put:
       tags:
-      - Ficha Reca
+        - Ficha Reca
       summary: Actualizar ficha reca.
       description: |
         Este método permite actualizar la ficha reca.
@@ -776,7 +776,7 @@ paths:
   /notificaciones/email:
     post:
       tags:
-      - Notificacion
+        - Notificacion
       summary: Enviar emails.
       description: |
         Este método permitirá enviar emails.
@@ -816,7 +816,7 @@ paths:
   /notificaciones/sms:
     post:
       tags:
-      - Notificacion
+        - Notificacion
       summary: Enviar sms.
       description: |
         Este método permitirá enviar sms.
@@ -856,7 +856,7 @@ paths:
   /notificaciones/whatsapp:
     post:
       tags:
-      - Notificacion
+        - Notificacion
       summary: Enviar whatsapp.
       description: |
         Este método permitirá enviar whatsapp.
@@ -896,19 +896,19 @@ paths:
   /parametros:
     get:
       tags:
-      - Parametro
+        - Parametro
       summary: Listar parámetro.
       description: |
         Este método permite listar los parámetros.
       operationId: listarParametro
       parameters:
-      - name: codigo
-        in: query
-        description: Código del parámetro que se ingresa como filtro
-        required: false
-        schema:
-          type: integer
-          example: 1
+        - name: codigo
+          in: query
+          description: Código del parámetro que se ingresa como filtro
+          required: false
+          schema:
+            type: integer
+            example: 1
       responses:
         '200':
           description: Operación exitosa
@@ -936,7 +936,7 @@ paths:
                 $ref: '#/components/schemas/ApiResponse500'
     put:
       tags:
-      - Parametro
+        - Parametro
       summary: Actualizar parámetro.
       description: |
         Este método permite registrar el parámetro.
@@ -976,19 +976,19 @@ paths:
   /denuncias:
     get:
       tags:
-      - Denuncia
+        - Denuncia
       summary: Listar denuncia.
       description: |
         Este método permite listar la denuncia.
       operationId: listarDenuncia
       parameters:
-      - name: idAlerta
-        in: query
-        description: Id de la alerta que se ingresa como filtro
-        required: true
-        schema:
-          type: integer
-          example: 123
+        - name: idAlerta
+          in: query
+          description: Id de la alerta que se ingresa como filtro
+          required: true
+          schema:
+            type: integer
+            example: 123
       responses:
         '200':
           description: Operación exitosa
@@ -996,6 +996,678 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListarDenunciaResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/activacion-alerta-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de veces que se activa la alerta por año.
+      description: |
+        Este método permite obtener el número de veces que se activa la alerta por año.
+      operationId: activacionAlertaAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivacionAlertaAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/activacion-alerta-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de veces que se activa la alerta por año.
+      description: |
+        Este método permite obtener el número de veces que se activa la alerta por periodo.
+      operationId: activacionAlertaPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-20-01'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivacionAlertaPeriodoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/activacion-alerta-ranking-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Ranking con mayor frencuencia por año.
+      description: |
+        Este método permite obtener el ranking con mayor frencuencia por año.
+      operationId: activacionAlertaRankingAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivacionAlertaRankingAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/activacion-alerta-ranking-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Ranking con mayor frencuencia por periodo.
+      description: |
+        Este método permite obtener el ranking con mayor frencuencia por periodo.
+      operationId: activacionAlertaRankingPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+        - name: fechaFin
+          in: query
+          description: fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-02'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivacionAlertaRankingPeriodoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/victimas-potenciales-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de víctimas potenciales por año.
+      description: |
+        Este método permite obtener el número de víctimas potenciales por año.
+      operationId: victimasPotencialesAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimasPotencialesAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/victimas-potenciales-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de víctimas potenciales por periodo.
+      description: |
+        Este método permite obtener el número de víctimas potenciales por periodo.
+      operationId: victimasPotencialesPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+        - name: fechaFin
+          in: query
+          description: fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-02'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimasPotencialesPeriodoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/victimas-potenciales-ranking-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Ranking de víctimas potenciales por año.
+      description: |
+        Este método permite obtener el ranking de víctimas potenciales por año.
+      operationId: victimasPotencialesRankingAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimasPotencialesRankingAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/victimas-potenciales-ranking-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Ranking de víctimas potenciales por periodo.
+      description: |
+        Este método permite obtener el ranking de víctimas potenciales por periodo.
+      operationId: victimasPotencialesRankingPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimasPotencialesRankingPeriodoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/acciones-fiscales-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de acciones fiscales por año.
+      description: |
+        Este método permite obtener el número de acciones fiscales por año.
+      operationId: accionesFiscalesAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccionesFiscalesAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/acciones-fiscales-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de acciones fiscales por periodo.
+      description: |
+        Este método permite obtener el número de acciones fiscales por periodo.
+      operationId: accionesFiscalesPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccionesFiscalesPeriodoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/servicios-asistencia-udavit-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de acciones fiscales por año.
+      description: |
+        Este método permite obtener el número de servicios de asistencia brindados por UDAVIT por año.
+      operationId: serviciosAsistenciaUdavitAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiciosAsistenciaUdavitAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/servicios-asistencia-udavit-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de acciones fiscales por periodo.
+      description: |
+        Este método permite obtener el número de servicios de asistencia brindados por UDAVIT por periodo.
+      operationId: serviciosAsistenciaUdavitPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-02'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiciosAsistenciaUdavitPeriodoResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/medidas-proteccion-anio:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de medidas de protección por año.
+      description: |
+        Este método permite obtener el número de medidas de protección por año.
+      operationId: medidasProteccionAnio
+      parameters:
+        - name: anioInicio
+          in: query
+          description: Año de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2018
+        - name: anioFin
+          in: query
+          description: Año de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: 2019
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedidasProteccionAnioResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
+  /dashboards/medidas-proteccion-periodo:
+    get:
+      tags:
+        - Dashboard
+      summary: Número de medidas de protección por periodo.
+      description: |
+        Este método permite obtener el número de medidas de protección por periodo.
+      operationId: medidasProteccionPeriodo
+      parameters:
+        - name: fechaInicio
+          in: query
+          description: Fecha de inicio que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-01'
+        - name: fechaFin
+          in: query
+          description: Fecha de fin que se ingresa como filtro
+          required: true
+          schema:
+            type: string
+            example: '2010-02-02'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedidasProteccionPeriodoResponse'
         '400':
           description: Datos no válidos
           content:
@@ -1028,8 +1700,8 @@ components:
           minLength: 1
           example: '123456'
       required:
-      - usuario
-      - clave
+        - usuario
+        - clave
     RegistrarAlertaRequest:
       type: object
       properties:
@@ -1082,8 +1754,8 @@ components:
           minLength: 1
           example: '23/11/2022'
       required:
-      - idFiscal
-      - idDelito
+        - idFiscal
+        - idDelito
     RegistrarAccionAlertaRequest:
       type: object
       properties:
@@ -1092,7 +1764,7 @@ components:
           minLength: 1
           example: 'Acción a'
       required:
-      - descripcion
+        - descripcion
     RegistrarProteccionAlertaRequest:
       type: object
       properties:
@@ -1101,7 +1773,7 @@ components:
           minLength: 1
           example: 'Protección a'
       required:
-      - descripcion
+        - descripcion
     RegistrarAlertaAccionRequest:
       type: object
       properties:
@@ -1120,8 +1792,8 @@ components:
           minLength: 1
           example: '23/11/2022'
       required:
-      - idFiscal
-      - idDelito
+        - idFiscal
+        - idDelito
     RegistrarAlertaProteccionRequest:
       type: object
       properties:
@@ -1140,8 +1812,8 @@ components:
           minLength: 1
           example: '23/11/2022'
       required:
-      - idFiscal
-      - idDelito
+        - idFiscal
+        - idDelito
     RegistrarDenunciaAlertaRequest:
       type: object
       properties:
@@ -1160,8 +1832,8 @@ components:
           minLength: 1
           example: 'usuario'
       required:
-      - idDenuncia
-      - idAlerta
+        - idDenuncia
+        - idAlerta
     RegistrarFichaRecaRequest:
       type: object
       properties:
@@ -1906,13 +2578,13 @@ components:
           minLength: 1
           example: 'N° 1'
       required:
-      - para
-      - asunto
-      - nombreAgraviada
-      - numeroDocAgraviada
-      - nombreAgraviante
-      - numeroDocAgraviante
-      - nombreFiscalia
+        - para
+        - asunto
+        - nombreAgraviada
+        - numeroDocAgraviada
+        - nombreAgraviante
+        - numeroDocAgraviante
+        - nombreFiscalia
     EnviarSmsRequest:
       type: object
       properties:
@@ -1938,12 +2610,12 @@ components:
           type: string
           example: 'N° 1'
       required:
-      - para
-      - nombreAgraviada
-      - numeroDocAgraviada
-      - nombreAgraviante
-      - numeroDocAgraviante
-      - nombreFiscalia
+        - para
+        - nombreAgraviada
+        - numeroDocAgraviada
+        - nombreAgraviante
+        - numeroDocAgraviante
+        - nombreFiscalia
     EnviarWhatsappRequest:
       type: object
       properties:
@@ -1969,12 +2641,12 @@ components:
           type: string
           example: 'N° 1'
       required:
-      - para
-      - nombreAgraviada
-      - numeroDocAgraviada
-      - nombreAgraviante
-      - numeroDocAgraviante
-      - nombreFiscalia
+        - para
+        - nombreAgraviada
+        - numeroDocAgraviada
+        - nombreAgraviante
+        - numeroDocAgraviante
+        - nombreFiscalia
     ActualizarParametroRequest:
       type: object
       properties:
@@ -1993,8 +2665,8 @@ components:
           minLength: 1
           example: '23/11/2022'
       required:
-      - descripcion
-      - valor
+        - descripcion
+        - valor
     LoginResponse:
       type: object
       properties:
@@ -2142,8 +2814,8 @@ components:
           type: string
           example: '23/11/2022'
       required:
-      - idFiscal
-      - idDelito
+        - idFiscal
+        - idDelito
     ContarAlertaDataResponse:
       type: object
       properties:
@@ -2729,6 +3401,279 @@ components:
         detalle:
           type: string
           example: Otros.
+    ActivacionAlertaAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivacionAlertaAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ActivacionAlertaAnioDataResponse:
+      type: object
+      properties:
+        anio:
+          type: string
+          example: '2019'
+        cantidad:
+          type: integer
+          example: 10
+    ActivacionAlertaPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivacionAlertaPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ActivacionAlertaPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2022-12'
+        cantidad:
+          type: integer
+          example: 10
+    ActivacionAlertaRankingAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivacionAlertaRankingAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ActivacionAlertaRankingAnioDataResponse:
+      type: object
+      properties:
+        distrito:
+          type: string
+          example: 'ICA'
+        cantidad:
+          type: integer
+          example: 10
+    ActivacionAlertaRankingPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActivacionAlertaRankingPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ActivacionAlertaRankingPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2022-12'
+        distrito:
+          type: string
+          example: 'ICA'
+        cantidad:
+          type: integer
+          example: 10
+    VictimasPotencialesAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VictimasPotencialesAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    VictimasPotencialesAnioDataResponse:
+      type: object
+      properties:
+        anio:
+          type: string
+          example: '2018'
+        cantidad:
+          type: integer
+          example: 10
+    VictimasPotencialesPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VictimasPotencialesPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    VictimasPotencialesPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2022-12'
+        cantidad:
+          type: integer
+          example: 10
+    VictimasPotencialesRankingAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VictimasPotencialesRankingAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    VictimasPotencialesRankingAnioDataResponse:
+      type: object
+      properties:
+        anio:
+          type: string
+          example: '2018'
+        distrito:
+          type: string
+          example: 'ICA'
+        cantidad:
+          type: integer
+          example: 10
+    VictimasPotencialesRankingPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VictimasPotencialesRankingPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    VictimasPotencialesRankingPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2022-12'
+        distrito:
+          type: string
+          example: 'ICA'
+        cantidad:
+          type: integer
+          example: 10
+    AccionesFiscalesAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccionesFiscalesAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    AccionesFiscalesAnioDataResponse:
+      type: object
+      properties:
+        anio:
+          type: string
+          example: '2018'
+        accion:
+          type: string
+          example: 'Accion 1'
+        cantidad:
+          type: integer
+          example: 10
+    AccionesFiscalesPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccionesFiscalesPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    AccionesFiscalesPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2022-12'
+        accion:
+          type: string
+          example: 'Accion 1'
+        cantidad:
+          type: integer
+          example: 10
+    ServiciosAsistenciaUdavitAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiciosAsistenciaUdavitAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ServiciosAsistenciaUdavitAnioDataResponse:
+      type: object
+      properties:
+        anio:
+          type: string
+          example: '2018'
+        cantidad:
+          type: integer
+          example: 10
+    ServiciosAsistenciaUdavitPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiciosAsistenciaUdavitPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    ServiciosAsistenciaUdavitPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2023-04'
+        cantidad:
+          type: integer
+          example: 10
+    MedidasProteccionAnioResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedidasProteccionAnioDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    MedidasProteccionAnioDataResponse:
+      type: object
+      properties:
+        anio:
+          type: string
+          example: '2018'
+        medidaProteccion:
+          type: string
+          example: 'Medida 1'
+        cantidad:
+          type: integer
+          example: 10
+    MedidasProteccionPeriodoResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedidasProteccionPeriodoDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+    MedidasProteccionPeriodoDataResponse:
+      type: object
+      properties:
+        periodo:
+          type: string
+          example: '2022-12'
+        medidaProteccion:
+          type: string
+          example: 'Medida 1'
+        cantidad:
+          type: integer
+          example: 10
     Metadata:
       type: object
       properties:
