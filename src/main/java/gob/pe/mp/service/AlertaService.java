@@ -4,6 +4,7 @@ import gob.pe.mp.api.AlertasApiDelegate;
 import gob.pe.mp.entity.AccionAlertaEntity;
 import gob.pe.mp.entity.AlertaEntity;
 import gob.pe.mp.entity.ProteccionAlertaEntity;
+import gob.pe.mp.enums.EstadoAlertaEnum;
 import gob.pe.mp.model.*;
 import gob.pe.mp.repository.impl.AlertaRepository;
 import gob.pe.mp.util.DateUtil;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -191,6 +193,40 @@ public class AlertaService implements AlertasApiDelegate {
     }
 
     @Override
+    public ResponseEntity<ListarAlertaAccionProteccionResponse> listarAlertaAccionProteccion(Integer idAlerta) {
+        List<ProteccionAlertaEntity> listaProteccion = alertaRepository.listarProteccionAlertaById(idAlerta);
+        List<AccionAlertaEntity> listaAccion = alertaRepository.listarAcccionAlertaById(idAlerta);
+
+        List<ListarAlertaAccionProteccionDataResponse> listaAlertaProteccionAccion = new ArrayList<>();
+
+        listaProteccion.stream().forEach(proteccionAlertaEntity -> {
+            ListarAlertaAccionProteccionDataResponse item = new ListarAlertaAccionProteccionDataResponse();
+            item.setCodigo(proteccionAlertaEntity.getId_med_proteccion());
+            item.descripcion(proteccionAlertaEntity.getDescripcion());
+            item.setTipo("MP");
+            listaAlertaProteccionAccion.add(item);
+        });
+
+        listaAccion.stream().forEach(accionAlertaEntity -> {
+            ListarAlertaAccionProteccionDataResponse item = new ListarAlertaAccionProteccionDataResponse();
+            item.setCodigo(accionAlertaEntity.getId_accion_alerta());
+            item.descripcion(accionAlertaEntity.getDescripcion());
+            item.setTipo("A");
+            listaAlertaProteccionAccion.add(item);
+        });
+
+        Metadata metadata = new Metadata();
+        metadata.setStatus(HttpStatus.OK.value());
+        metadata.setMessage("El proceso fue exitoso.");
+
+        ListarAlertaAccionProteccionResponse response = new ListarAlertaAccionProteccionResponse();
+        response.setMetadata(metadata);
+        response.setData(listaAlertaProteccionAccion);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<RegistrarProteccionAlertaResponse> registrarProteccionAlerta(RegistrarProteccionAlertaRequest request) {
         alertaRepository.insertarProteccionAlerta(request.getDescripcion());
 
@@ -209,6 +245,7 @@ public class AlertaService implements AlertasApiDelegate {
         Date fecha = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATETIME_FORMAT);
 
         alertaRepository.insertarAlertaAccion(request.getIdAlerta(), request.getIdAccion(), fecha, request.getUsuarioRegistro());
+        alertaRepository.actualizarEstado(request.getIdAlerta(), EstadoAlertaEnum.EN_PROCESO.getCodigo());
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
@@ -221,10 +258,11 @@ public class AlertaService implements AlertasApiDelegate {
     }
 
     @Override
-    public ResponseEntity<RegistrarAlertaProteccionResponse> registrarAlertamMedidaProteccin(RegistrarAlertaProteccionRequest request) {
+    public ResponseEntity<RegistrarAlertaProteccionResponse> registrarAlertaMedidaProteccion(RegistrarAlertaProteccionRequest request) {
         Date fecha = DateUtil.getDateFromString(request.getFechaRegistro(), DateUtil.DATETIME_FORMAT);
 
         alertaRepository.insertarAlertaMedidaProteccion(request.getIdAlerta(), request.getIdMedidaProteccion(), fecha, request.getUsuarioRegistro());
+        alertaRepository.actualizarEstado(request.getIdAlerta(), EstadoAlertaEnum.CERRADO.getCodigo());
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());

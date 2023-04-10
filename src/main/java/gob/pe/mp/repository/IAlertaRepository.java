@@ -25,6 +25,10 @@ public interface IAlertaRepository {
     void insertarProteccionAlerta(String descripcion);
     List<ProteccionAlertaEntity> listarProteccionAlerta();
     Integer contarProteccionAlerta();
+
+    List<ProteccionAlertaEntity> listarProteccionAlertaById(Integer idAlerta);
+    List<AccionAlertaEntity> listarAcccionAlertaById(Integer idAlerta);
+
     List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin);
     Integer contarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin);
 
@@ -32,4 +36,6 @@ public interface IAlertaRepository {
     void insertarAlertaMedidaProteccion(Integer idAlerta, Integer idMedidaProteccion, Date fecRegistro, String usuarioRegistro);
 
     void insertarDenunciaAlerta(Integer idDenuncia, Integer idAlerta, Date fechaRegistro, String usuarioRegistro);
+
+    void actualizarEstado(Integer idAlerta, Integer idEstando);
 }

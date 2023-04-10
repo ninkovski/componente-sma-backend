@@ -93,6 +93,20 @@ public interface AlertaMapper {
     @Options(statementType = StatementType.CALLABLE)
     Integer contarProteccionAlertaByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
+    @Select(value = "SELECT tbp.*" +
+            "FROM \"TB_MEDIDA_PROTECCION\" tbp " +
+            "INNER JOIN \"TB_ALERTA_PROTECCION\" tap on tbp.\"ID_MED_PROTECCION\"=tap.\"ID_MED_PROTECCION\" " +
+            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=tap.\"ID_ALERTA\" where ta.\"ID_ALERTA\"=#{idAlerta}")
+    @Options(statementType = StatementType.CALLABLE)
+    List<ProteccionAlertaEntity> listarProteccionAlertaById(@Param("idAlerta") Integer idAlerta);
+
+    @Select(value = "SELECT tbac.*" +
+            "FROM \"TB_ACCION_ALERTA\" tbac " +
+            "INNER JOIN \"TB_ALERTA_ACION\" taa on tbac.\"ID_ACCION_ALERTA\"=taa.\"ID_ACCION_ALERTA\" " +
+            "INNER JOIN \"TB_ALERTA\" ta on ta.\"ID_ALERTA\"=taa.\"ID_ALERTA\" where ta.\"ID_ALERTA\"=#{idAlerta}")
+    @Options(statementType = StatementType.CALLABLE)
+    List<AccionAlertaEntity> listarAccionAlertaById(@Param("idAlerta") Integer idAlerta);
+
     @Insert(value = "INSERT INTO \"TB_ALERTA_ACION\"" +
             "(\"ID_ALERTA\",\"ID_ACCION_ALERTA\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
             "VALUES (#{idAlerta},#{idAccion},#{fecRegistro},#{usuarioRegistro})")
@@ -110,4 +124,8 @@ public interface AlertaMapper {
             "VALUES (#{idDenuncia},#{idAlerta},#{fechaRegistro},#{usuarioRegistro})")
     void insertarDenunciaAlerta(@Param("idDenuncia") Integer idDenuncia, @Param("idAlerta") Integer idAlerta,
                                 @Param("fechaRegistro") Date fechaRegistro, @Param("usuarioRegistro") String usuarioRegistro);
+
+    @Insert(value = "UPDATE \"TB_ALERTA\"" +
+            "set \"ID_ESTADO\"=#{idEstado} where \"ID_ALERTA\"=#{idAlerta}")
+    void actualizarEstado(@Param("idAlerta") Integer idAlerta, @Param("idEstado") Integer idEstado);
 }

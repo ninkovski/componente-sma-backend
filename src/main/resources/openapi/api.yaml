@@ -397,6 +397,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse500'
+  /alertas/alerta-accion-proteccion/{idAlerta}:
+    get:
+      tags:
+        - Alerta
+      summary: Listar las acciones y medidas de protección por alerta.
+      description: |
+        Este método permite listar las acciones y medidas de protección por alerta.
+      operationId: listarAlertaAccionProteccion
+      parameters:
+        - name: idAlerta
+          in: path
+          description: Id de alerta que se ingresa como filtro
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListarAlertaAccionProteccionResponse'
+        '400':
+          description: Datos no válidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse400'
+        '404':
+          description: Recurso inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse404'
+        '500':
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse500'
   /alertas/alerta-accion:
     post:
       tags:
@@ -444,7 +485,7 @@ paths:
       summary: Registrar alerta-medida protección.
       description: |
         Este método permite registrar la alerta asociada a la medida protección.
-      operationId: registrarAlertamMedidaProtección
+      operationId: registrarAlertaMedidaProteccion
       requestBody:
         required: true
         description: Request requerido para registrar la alerta medida protección protección.
@@ -2745,6 +2786,15 @@ components:
           $ref: '#/components/schemas/ContarProteccionAlertaDataResponse'
         metadata:
           $ref: '#/components/schemas/Metadata'
+    ListarAlertaAccionProteccionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListarAlertaAccionProteccionDataResponse'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
     LoginDataResponse:
       type: object
       properties:
@@ -2846,6 +2896,18 @@ components:
         cantidad:
           type: integer
           example: 123
+    ListarAlertaAccionProteccionDataResponse:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          example: 123
+        descripcion:
+          type: string
+          example: 'Protección alerta'
+        tipo:
+          type: string
+          example: 'A'
     ListarCatalogoResponse:
       type: object
       properties:

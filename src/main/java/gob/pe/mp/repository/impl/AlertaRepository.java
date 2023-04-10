@@ -76,13 +76,23 @@ public class AlertaRepository implements IAlertaRepository {
     }
 
     @Override
-    public List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin) {
-        return alertaMapper.listarProteccionAlertaByFechas(fechaInicio, fechaFin);
+    public List<ProteccionAlertaEntity> listarProteccionAlertaById(Integer idAlerta) {
+        return alertaMapper.listarProteccionAlertaById(idAlerta);
+    }
+
+    @Override
+    public List<AccionAlertaEntity> listarAcccionAlertaById(Integer idAlerta) {
+        return alertaMapper.listarAccionAlertaById(idAlerta);
     }
 
     @Override
     public Integer contarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin) {
         return alertaMapper.contarProteccionAlertaByFechas(fechaInicio, fechaFin);
+    }
+
+    @Override
+    public List<ProteccionAlertaEntity> listarProteccionAlertaByFechas(Date fechaInicio, Date fechaFin) {
+        return alertaMapper.listarProteccionAlertaByFechas(fechaInicio, fechaFin);
     }
 
     @Override
@@ -98,5 +108,10 @@ public class AlertaRepository implements IAlertaRepository {
     @Override
     public void insertarDenunciaAlerta(Integer idDenuncia, Integer idAlerta, Date fechRegistro, String usuarioRegistro) {
         alertaMapper.insertarDenunciaAlerta(idDenuncia, idAlerta, fechRegistro, usuarioRegistro);
+    }
+
+    @Override
+    public void actualizarEstado(Integer idAlerta, Integer idEstando) {
+        alertaMapper.actualizarEstado(idAlerta, idEstando);
     }
 }
