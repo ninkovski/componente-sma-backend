@@ -1,6 +1,7 @@
 package gob.pe.mp.service;
 
 import gob.pe.mp.api.NotificacionesApiDelegate;
+import gob.pe.mp.client.EmailClientService;
 import gob.pe.mp.client.SendGridService;
 import gob.pe.mp.client.TwilioService;
 import gob.pe.mp.model.*;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ import java.util.Map;
 public class NotificacionService implements NotificacionesApiDelegate {
 
     @Autowired
-    private SendGridService sendGridService;
+    private EmailClientService emailClientService;
 
     @Autowired
     private VelocityEngine velocityEngine;
@@ -33,8 +35,8 @@ public class NotificacionService implements NotificacionesApiDelegate {
         request.getPara().forEach(para -> {
             String body = getBody(request);
 
-            sendGridService.sendHTML(
-                    para,
+            emailClientService.sendEmail(
+                    Collections.singletonList(para),
                     request.getEnCopia(),
                     request.getAsunto(),
                     body
