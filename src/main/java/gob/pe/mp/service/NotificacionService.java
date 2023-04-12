@@ -4,6 +4,7 @@ import gob.pe.mp.api.NotificacionesApiDelegate;
 import gob.pe.mp.client.EmailClientService;
 import gob.pe.mp.client.SendGridService;
 import gob.pe.mp.client.TwilioService;
+import gob.pe.mp.config.EmailProperties;
 import gob.pe.mp.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.app.VelocityEngine;
@@ -25,6 +26,9 @@ public class NotificacionService implements NotificacionesApiDelegate {
     private EmailClientService emailClientService;
 
     @Autowired
+    private EmailProperties emailProperties;
+
+    @Autowired
     private VelocityEngine velocityEngine;
 
     @Autowired
@@ -32,7 +36,8 @@ public class NotificacionService implements NotificacionesApiDelegate {
 
     @Override
     public ResponseEntity<EnviarEmailResponse> enviarEmail(EnviarEmailMRequest request) {
-        String body = getBody(request);
+//        String body = getBody(request);
+        String body = enviarMensajeSrFiscal(request);
 
             emailClientService.sendEmail(
                     request.getPara(),
@@ -111,6 +116,15 @@ public class NotificacionService implements NotificacionesApiDelegate {
                 "UTF-8",
                 mapaValoresPlantilla
         );
+    }
+
+    private String enviarMensajeSrFiscal(EnviarEmailMRequest request) {
+        String cuerpo = String.format(emailProperties.getCuerpo(),
+                request.getNombreAgraviada(), request.getNumeroDocAgraviada(),
+                request.getNombreAgraviante(), request.getNumeroDocAgraviante(),
+                request.getNombreFiscalia());
+
+        return cuerpo;
     }
 
 }

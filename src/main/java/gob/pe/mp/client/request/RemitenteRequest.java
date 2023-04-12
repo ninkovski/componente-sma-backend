@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RemitenteRequest {
-    private static int idEmailCounter = 0;
+    private static int idEmailCounter = 1;
     private String id_email;
     private String email;
     private String nombre;

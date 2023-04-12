@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 public class SendEmailRequest {
 
-    private static int idUsuarioCounter = 0;
+    private static int idUsuarioCounter = 1;
     private String idsistema;
     private String idusuario;
     private String ip;
@@ -22,17 +22,4 @@ public class SendEmailRequest {
         idusuario = Integer.toString(idUsuarioCounter);
         idUsuarioCounter++;
     }
-
-//    @Override
-//    public String toString(){
-//        return "NotificationResponse{" +
-//                "id del sistema='" + idsistema + '\'' +
-//                ", id del usuario='" + idusuario + '\'' +
-//                ", ip de maquina='" + ip + '\'' +
-//                ", remitente='" + remitente + '\'' +
-//                ", asunto='" + asunto + '\'' +
-//                ", destinatarios='" + destinatarios + '\'' +
-//                ", cuerpo='" + cuerpo + '\'' +
-//                '}';
-//    }
 }
