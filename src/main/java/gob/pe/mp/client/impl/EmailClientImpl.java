@@ -30,7 +30,7 @@ public class EmailClientImpl implements EmailClientService {
 
     @Override
     public SendEmailResponse sendEmail(List<String> para, List<String> enCopia, String asunto, String body) {
-        String url = emailProperties.getUriApiEmail();
+        String url = emailProperties.getUriapiemail();
 
         log.info("Estableciendo comunicación ({}) enviarEmail: ", url);
 
@@ -38,23 +38,21 @@ public class EmailClientImpl implements EmailClientService {
 
         for (String destino : para) {
             DestinatariosRequest destinatariosRequest = new DestinatariosRequest();
-            destinatariosRequest.setId_email();
             destinatariosRequest.setEmail(destino);
             destinatariosRequest.setNombre("");
-            destinatariosRequest.setTipo(emailProperties.getTipo());
+            destinatariosRequest.setTipo(emailProperties.getDestinatarioTipo());
             destinatariosRequests.add(destinatariosRequest);
         }
 
         RemitenteRequest remitenteRequest = new RemitenteRequest();
-        remitenteRequest.setId_email();
-        remitenteRequest.setEmail(emailProperties.getRemitente());
-        remitenteRequest.setNombre(emailProperties.getNombre());
-        remitenteRequest.setClave(emailProperties.getClave());
+        remitenteRequest.setEmail(emailProperties.getRemitenteEmail());
+        remitenteRequest.setNombre(emailProperties.getRemitenteNombre());
+        remitenteRequest.setClave(emailProperties.getRemitenteClave());
 
         SendEmailRequest emailRequest = new SendEmailRequest();
         emailRequest.setIdsistema(emailProperties.getIdsistema());
-        emailRequest.setIdusuario();
-        emailRequest.setIp(emailProperties.getIp());
+        emailRequest.setIdusuario(emailProperties.getIdusuario());
+        emailRequest.setIp(emailProperties.getMaquinaIp());
         emailRequest.setRemitente(remitenteRequest);
         emailRequest.setAsunto(asunto);
         emailRequest.setDestinatarios(destinatariosRequests);

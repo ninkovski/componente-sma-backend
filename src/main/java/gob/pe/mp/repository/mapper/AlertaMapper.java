@@ -49,7 +49,7 @@ public interface AlertaMapper {
             "INNER JOIN \"TB_FISCAL\" TF ON TA.\"ID_FISCAL\"=TF.\"ID_FISCAL\" " +
             "INNER JOIN \"TB_DELITO\" TD ON TA.\"ID_DELITO\"=TD.\"ID_DELITO\" " +
             "INNER JOIN \"TB_ESTADO\" TE ON TA.\"ID_ESTADO\"=TE.\"ID_ESTADO\" " +
-            "WHERE CAST (TA.\"FEC_ING_CASO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
+            "WHERE CAST (TA.\"FEC_REGISTRO_NUEVO\" AS DATE) BETWEEN #{fechaInicio} AND #{fechaFin}")
     @Options(statementType = StatementType.CALLABLE)
     List<AlertaEntity> listarByFechas(@Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 

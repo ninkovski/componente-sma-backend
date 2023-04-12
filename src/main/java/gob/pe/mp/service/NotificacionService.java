@@ -39,12 +39,12 @@ public class NotificacionService implements NotificacionesApiDelegate {
 //        String body = getBody(request);
         String body = enviarMensajeSrFiscal(request);
 
-            emailClientService.sendEmail(
-                    request.getPara(),
-                    request.getEnCopia(),
-                    request.getAsunto(),
-                    body
-            );
+        emailClientService.sendEmail(
+                request.getPara(),
+                request.getEnCopia(),
+                request.getAsunto(),
+                body
+        );
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
@@ -119,12 +119,10 @@ public class NotificacionService implements NotificacionesApiDelegate {
     }
 
     private String enviarMensajeSrFiscal(EnviarEmailMRequest request) {
-        String cuerpo = String.format(emailProperties.getCuerpo(),
+        return String.format(emailProperties.getMensaje(),
                 request.getNombreAgraviada(), request.getNumeroDocAgraviada(),
                 request.getNombreAgraviante(), request.getNumeroDocAgraviante(),
                 request.getNombreFiscalia());
-
-        return cuerpo;
     }
 
 }

@@ -14,25 +14,26 @@ import org.springframework.context.annotation.PropertySource;
 @Setter
 public class EmailProperties {
 
-    private String uriApiEmail;
+    private String uriapiemail;
 
     private String idsistema;
 
     private String idusuario;
 
     @Value("${email.maquina.ip}")
-    private String ip;
+    private String maquinaIp;
 
     @Value("${email.destinatario.tipo}")
-    private String tipo;
+    private String destinatarioTipo;
 
-    private String remitente;
+    @Value("${email.remitente.email}")
+    private String remitenteEmail;
 
     @Value("${email.remitente.nombre}")
-    private String nombre;
+    private String remitenteNombre;
 
     @Value("${email.remitente.clave}")
-    private String clave;
+    private String remitenteClave;
 
-    private String cuerpo;
+    private String mensaje;
 }
