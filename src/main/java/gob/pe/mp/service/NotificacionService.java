@@ -1,8 +1,10 @@
 package gob.pe.mp.service;
 
 import gob.pe.mp.api.NotificacionesApiDelegate;
+import gob.pe.mp.client.EmailClientService;
 import gob.pe.mp.client.SendGridService;
 import gob.pe.mp.client.TwilioService;
+import gob.pe.mp.config.EmailProperties;
 import gob.pe.mp.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.app.VelocityEngine;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +23,10 @@ import java.util.Map;
 public class NotificacionService implements NotificacionesApiDelegate {
 
     @Autowired
-    private SendGridService sendGridService;
+    private EmailClientService emailClientService;
+
+    @Autowired
+    private EmailProperties emailProperties;
 
     @Autowired
     private VelocityEngine velocityEngine;
@@ -30,16 +36,15 @@ public class NotificacionService implements NotificacionesApiDelegate {
 
     @Override
     public ResponseEntity<EnviarEmailResponse> enviarEmail(EnviarEmailMRequest request) {
-        request.getPara().forEach(para -> {
-            String body = getBody(request);
+//        String body = getBody(request);
+        String body = enviarMensajeSrFiscal(request);
 
-            sendGridService.sendHTML(
-                    para,
+            emailClientService.sendEmail(
+                    request.getPara(),
                     request.getEnCopia(),
                     request.getAsunto(),
                     body
             );
-        });
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());
@@ -111,6 +116,15 @@ public class NotificacionService implements NotificacionesApiDelegate {
                 "UTF-8",
                 mapaValoresPlantilla
         );
+    }
+
+    private String enviarMensajeSrFiscal(EnviarEmailMRequest request) {
+        String cuerpo = String.format(emailProperties.getCuerpo(),
+                request.getNombreAgraviada(), request.getNumeroDocAgraviada(),
+                request.getNombreAgraviante(), request.getNumeroDocAgraviante(),
+                request.getNombreFiscalia());
+
+        return cuerpo;
     }
 
 }
