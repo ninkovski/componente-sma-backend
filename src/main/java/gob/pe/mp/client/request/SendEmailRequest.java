@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 public class SendEmailRequest {
 
+    private static int idUsuarioCounter = 0;
     private String idsistema;
     private String idusuario;
     private String ip;
@@ -16,6 +17,11 @@ public class SendEmailRequest {
     private String asunto;
     private List<DestinatariosRequest> destinatarios;
     private String cuerpo;
+
+    public void setIdusuario() {
+        idusuario = Integer.toString(idUsuarioCounter);
+        idUsuarioCounter++;
+    }
 
 //    @Override
 //    public String toString(){

@@ -34,33 +34,28 @@ public class EmailClientImpl implements EmailClientService {
 
         log.info("Establishing communication ({}) sendEmail: ", url);
 
-        List<RemitenteRequest> remitentesRequests = new ArrayList<>();
-
-        for (String remite : para) {
-            RemitenteRequest remitenteRequest = new RemitenteRequest();
-            remitenteRequest.setId_email(remite);
-            remitenteRequest.setEmail(remite);
-            remitenteRequest.setNombre(remite);
-            remitenteRequest.setClave(remite);
-            remitentesRequests.add(remitenteRequest);
-        }
-
         List<DestinatariosRequest> destinatariosRequests = new ArrayList<>();
 
-        for (String destino : enCopia) {
+        for (String destino : para) {
             DestinatariosRequest destinatariosRequest = new DestinatariosRequest();
-            destinatariosRequest.setId_email(destino);
+            destinatariosRequest.setId_email();
             destinatariosRequest.setEmail(destino);
-            destinatariosRequest.setNombre(destino);
-            destinatariosRequest.setTipo(destino);
+            destinatariosRequest.setNombre("");
+            destinatariosRequest.setTipo(emailProperties.getTipo());
             destinatariosRequests.add(destinatariosRequest);
         }
 
+        RemitenteRequest remitenteRequest = new RemitenteRequest();
+        remitenteRequest.setId_email();
+        remitenteRequest.setEmail(emailProperties.getRemitente());
+        remitenteRequest.setNombre(emailProperties.getNombre());
+        remitenteRequest.setClave(emailProperties.getClave());
+
         SendEmailRequest emailRequest = new SendEmailRequest();
         emailRequest.setIdsistema(emailProperties.getIdsistema());
-        emailRequest.setIdusuario(emailProperties.getIdusuario());
+        emailRequest.setIdusuario();
         emailRequest.setIp(emailProperties.getIp());
-        emailRequest.setRemitente((RemitenteRequest) remitentesRequests);
+        emailRequest.setRemitente(remitenteRequest);
         emailRequest.setAsunto(asunto);
         emailRequest.setDestinatarios(destinatariosRequests);
         emailRequest.setCuerpo(body);

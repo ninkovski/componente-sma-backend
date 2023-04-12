@@ -16,4 +16,7 @@ public class EmailProperties {
     private String idusuario;
     private String ip;
     private String tipo;
+    private String remitente;
+    private String nombre;
+    private String clave;
 }
