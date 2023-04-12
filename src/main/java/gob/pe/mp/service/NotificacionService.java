@@ -32,16 +32,14 @@ public class NotificacionService implements NotificacionesApiDelegate {
 
     @Override
     public ResponseEntity<EnviarEmailResponse> enviarEmail(EnviarEmailMRequest request) {
-        request.getPara().forEach(para -> {
-            String body = getBody(request);
+        String body = getBody(request);
 
             emailClientService.sendEmail(
-                    Collections.singletonList(para),
+                    request.getPara(),
                     request.getEnCopia(),
                     request.getAsunto(),
                     body
             );
-        });
 
         Metadata metadata = new Metadata();
         metadata.setStatus(HttpStatus.OK.value());

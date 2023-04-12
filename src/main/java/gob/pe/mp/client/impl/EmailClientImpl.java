@@ -32,7 +32,7 @@ public class EmailClientImpl implements EmailClientService {
     public SendEmailResponse sendEmail(List<String> para, List<String> enCopia, String asunto, String body) {
         String url = emailProperties.getUriApiEmail();
 
-        log.info("Establishing communication ({}) sendEmail: ", url);
+        log.info("Estableciendo comunicación ({}) enviarEmail: ", url);
 
         List<DestinatariosRequest> destinatariosRequests = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class EmailClientImpl implements EmailClientService {
 
         ResponseEntity<SendEmailResponse> response = restTemplate.exchange(url, HttpMethod.POST, request, SendEmailResponse.class);
 
-        log.info("Finishing communication ({}) sendSms, response: {}", url, response != null ? response.getBody() : null);
+        log.info("Terminando la comunicación ({}) enviarEmail, response: {}", url, response != null ? response.getBody() : null);
 
         return response.getBody();
     }
