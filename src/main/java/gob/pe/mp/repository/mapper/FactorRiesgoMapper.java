@@ -13,13 +13,13 @@ import java.util.List;
 public interface FactorRiesgoMapper {
 
     @Insert(value = "INSERT INTO \"TB_FACT_RIESGO_DETALLE\" " +
-            "(\"FACT_RIESGO\",\"ID_TB_FICHA_RECA\",\"DETALLE\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
+            "(\"ID_FACT_RIESGO\",\"ID_TB_FICHA_RECA\",\"DETALLE\",\"FEC_REGISTRO_NUEVO\",\"USUARIO_AUDT_NUEVO\") " +
             "VALUES (#{factorRiesgo},#{idFichaReca},#{detalle},#{fechaRegistro},#{usuarioRegistro})")
     void insertar(@Param("factorRiesgo") Integer factorRiesgo, @Param("idFichaReca") Integer idFichaReca,
                   @Param("detalle") String detalle, @Param("fechaRegistro") Date fechaRegistro,
                   @Param("usuarioRegistro") String usuarioRegistro);
 
-    @Select(value = "SELECT " + "\"ID_FACT_RIESGO_DETALLE\",\"FACT_RIESGO\",\"ID_TB_FICHA_RECA\",\"DETALLE\" " +
+    @Select(value = "SELECT " + "\"ID_FACT_RIESGO_DETALLE\",\"ID_FACT_RIESGO\",\"ID_TB_FICHA_RECA\",\"DETALLE\" " +
             "FROM \"TB_FACT_RIESGO_DETALLE\" WHERE \"ID_TB_FICHA_RECA\"=#{codigoFichaReca}")
     @Options(statementType = StatementType.CALLABLE)
     List<FactorRiesgoEntity> listarPorCodigoReca(@Param("codigoFichaReca") Integer codigoFichaReca);

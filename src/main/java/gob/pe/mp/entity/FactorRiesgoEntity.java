@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 public class FactorRiesgoEntity {
 
     private Integer id_fact_riesgo_detalle;
-    private Integer fact_riesgo;
+    private Integer id_fact_riesgo;
     private String id_tb_ficha_reca;
     private String detalle;
 }
